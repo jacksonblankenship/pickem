@@ -1,6 +1,7 @@
 import { BetStatus } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { LockClosedIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { useCallback } from 'react';
 import { BetStatusIcon } from './bet-status-icon';
 import { Button } from './ui/button';
 
@@ -35,6 +36,18 @@ export function BetOption({
   onConfirmLock,
   onCancelLock,
 }: BetOptionProps) {
+  const handleOptionSelect = useCallback(() => {
+    onOptionSelect?.();
+  }, [onOptionSelect]);
+
+  const handleConfirmLock = useCallback(() => {
+    onConfirmLock?.();
+  }, [onConfirmLock]);
+
+  const handleCancelLock = useCallback(() => {
+    onCancelLock?.();
+  }, [onCancelLock]);
+
   return (
     <div className={cn('relative overflow-hidden', className)}>
       {/* Lock overlay */}
@@ -45,20 +58,28 @@ export function BetOption({
           showLockOverlay ? 'translate-x-0' : '-translate-x-full',
         )}>
         {/* Close */}
-        <Button variant="outline" onClick={onCancelLock} size="icon">
+        <Button
+          variant="outline"
+          onClick={handleCancelLock}
+          size="icon"
+          aria-label="Cancel lock">
           <XMarkIcon />
         </Button>
 
         {/* Confirm */}
-        <Button className="flex-1" onClick={onConfirmLock}>
+        <Button
+          className="flex-1"
+          onClick={handleConfirmLock}
+          aria-label={lockOverlayText}>
           <LockClosedIcon /> {lockOverlayText}
         </Button>
       </div>
 
       {/* Option */}
-      <div
-        className={cn('flex items-center rounded p-2')}
-        onClick={onOptionSelect}>
+      <Button
+        variant="ghost"
+        className={cn('w-full justify-start rounded p-2')}
+        onClick={handleOptionSelect}>
         {/* Label */}
         <div className="mr-auto flex items-center gap-2">
           {accessory}
@@ -75,7 +96,7 @@ export function BetOption({
 
         {/* Status */}
         <BetStatusIcon betStatus={betStatus} className="ml-2" />
-      </div>
+      </Button>
     </div>
   );
 }
