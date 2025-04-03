@@ -76,9 +76,11 @@ export function BetOption({
       </div>
 
       {/* Option */}
-      <Button
-        variant="ghost"
-        className={cn('w-full justify-start rounded p-2')}
+      <div
+        className={cn(
+          'flex w-full items-center justify-start rounded p-2',
+          betStatus === 'disabled' && 'pointer-events-none opacity-50',
+        )}
         onClick={handleOptionSelect}>
         {/* Label */}
         <div className="mr-auto flex items-center gap-2">
@@ -96,7 +98,7 @@ export function BetOption({
 
         {/* Status */}
         <BetStatusIcon betStatus={betStatus} className="ml-2" />
-      </Button>
+      </div>
     </div>
   );
 }
