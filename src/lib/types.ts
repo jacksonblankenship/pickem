@@ -1,1 +1,7 @@
-export type BetStatus = 'not-played' | 'locked' | 'won' | 'lost';
+export type PickStatus =
+  | 'not-picked'
+  | 'locked'
+  | 'win'
+  | 'loss'
+  | 'push'
+  | 'missed-pick';

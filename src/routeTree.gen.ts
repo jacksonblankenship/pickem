@@ -11,13 +11,13 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as IndexImport } from './routes/index'
+import { Route as PicksGroupIdYearWeekImport } from './routes/picks.$groupId.$year.$week'
 
 // Create/Update Routes
 
-const IndexRoute = IndexImport.update({
-  id: '/',
-  path: '/',
+const PicksGroupIdYearWeekRoute = PicksGroupIdYearWeekImport.update({
+  id: '/picks/$groupId/$year/$week',
+  path: '/picks/$groupId/$year/$week',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -25,11 +25,11 @@ const IndexRoute = IndexImport.update({
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
+    '/picks/$groupId/$year/$week': {
+      id: '/picks/$groupId/$year/$week'
+      path: '/picks/$groupId/$year/$week'
+      fullPath: '/picks/$groupId/$year/$week'
+      preLoaderRoute: typeof PicksGroupIdYearWeekImport
       parentRoute: typeof rootRoute
     }
   }
@@ -38,33 +38,33 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/picks/$groupId/$year/$week': typeof PicksGroupIdYearWeekRoute
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
+  '/picks/$groupId/$year/$week': typeof PicksGroupIdYearWeekRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  '/': typeof IndexRoute
+  '/picks/$groupId/$year/$week': typeof PicksGroupIdYearWeekRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/picks/$groupId/$year/$week'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/picks/$groupId/$year/$week'
+  id: '__root__' | '/picks/$groupId/$year/$week'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  PicksGroupIdYearWeekRoute: typeof PicksGroupIdYearWeekRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  PicksGroupIdYearWeekRoute: PicksGroupIdYearWeekRoute,
 }
 
 export const routeTree = rootRoute
@@ -77,11 +77,11 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/"
+        "/picks/$groupId/$year/$week"
       ]
     },
-    "/": {
-      "filePath": "index.tsx"
+    "/picks/$groupId/$year/$week": {
+      "filePath": "picks.$groupId.$year.$week.tsx"
     }
   }
 }

@@ -1,3 +1,4 @@
+import { Toaster } from '@/components/ui/sonner';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Outlet, createRootRoute } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
@@ -12,6 +13,7 @@ function RootComponent() {
   return (
     <React.Fragment>
       <Outlet />
+      <Toaster />
       <TanStackRouterDevtools />
       <ReactQueryDevtools />
     </React.Fragment>

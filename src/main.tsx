@@ -1,7 +1,9 @@
+import { ClerkProvider } from '@clerk/clerk-react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { RouterProvider, createRouter } from '@tanstack/react-router';
+import { createRouter, RouterProvider } from '@tanstack/react-router';
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
+import { env } from './lib/env';
 import { routeTree } from './routeTree.gen';
 
 import './index.css';
@@ -10,7 +12,9 @@ import './index.css';
 const queryClient = new QueryClient();
 
 // Create a new router instance
-const router = createRouter({ routeTree });
+const router = createRouter({
+  routeTree,
+});
 
 // Register the router instance for type safety
 declare module '@tanstack/react-router' {
@@ -25,9 +29,11 @@ if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <StrictMode>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
+      <ClerkProvider publishableKey={env.VITE_CLERK_PUBLISHABLE_KEY}>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+        </QueryClientProvider>
+      </ClerkProvider>
     </StrictMode>,
   );
 }
