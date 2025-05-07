@@ -1,55 +1,51 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { PickOverviewItem } from '.';
+import { PickStatusIcon } from '.';
 
 const meta = {
-  title: 'Pickem/PickOverview/PickOverviewItem',
-  component: PickOverviewItem,
-  parameters: {},
+  title: 'Pickem/PickStatusIcon',
+  component: PickStatusIcon,
+  parameters: {
+    layout: 'centered',
+  },
   tags: ['autodocs'],
-} satisfies Meta<typeof PickOverviewItem>;
+} satisfies Meta<typeof PickStatusIcon>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const NotPicked: Story = {
-  args: {
-    type: 'favorite',
-    status: 'not-picked',
-  },
-};
-
 export const Locked: Story = {
   args: {
-    type: 'favorite',
     status: 'locked',
   },
 };
 
 export const Win: Story = {
   args: {
-    type: 'favorite',
     status: 'win',
   },
 };
 
 export const Loss: Story = {
   args: {
-    type: 'favorite',
     status: 'loss',
   },
 };
 
 export const Push: Story = {
   args: {
-    type: 'favorite',
     status: 'push',
   },
 };
 
 export const MissedPick: Story = {
   args: {
-    type: 'favorite',
     status: 'missed-pick',
+  },
+};
+
+export const NotPicked: Story = {
+  args: {
+    status: 'not-picked',
   },
 };

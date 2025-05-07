@@ -1,7 +1,8 @@
 import { PickStatus } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { entries } from 'remeda';
-import { PickOverviewItem } from '../pick-overview-item';
+import { PickStatusBadge } from '../pick-status-badge';
+import { PickStatusIcon } from '../pick-status-icon';
 
 interface PickOverviewProps extends React.HTMLAttributes<HTMLDivElement> {
   picks: {
@@ -29,15 +30,22 @@ export function PickOverview({
   return (
     <div className={cn('flex flex-col gap-2', className)} {...nativeProps}>
       <h2 className="text-lg font-semibold">Your Picks</h2>
-      <div>
+      <div className="flex flex-col gap-1">
         {picksEntries.map(([pickType, pickValue]) => (
-          <PickOverviewItem key={pickType} type={pickType} status={pickValue} />
+          <dl className="flex items-center justify-between" key={pickType}>
+            <dt className="flex items-center gap-2 font-bold capitalize">
+              <PickStatusIcon status={pickValue} /> {pickType}
+            </dt>
+            <dd>
+              <PickStatusBadge status={pickValue} />
+            </dd>
+          </dl>
         ))}
       </div>
       {isGraded ? null : totalPicks === 0 ? (
-        <p className="text-muted-foreground text-xs">Make your first pick!</p>
+        <p className="text-muted-foreground text-sm">Make your first pick!</p>
       ) : totalPicks < 3 ? (
-        <p className="text-muted-foreground text-xs">
+        <p className="text-muted-foreground text-sm">
           {totalPicks} picks in — {3 - totalPicks} left to go.
         </p>
       ) : null}
