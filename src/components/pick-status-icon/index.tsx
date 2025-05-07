@@ -58,6 +58,8 @@ export function PickStatusIcon({
   return (
     <Icon
       className={cn(pickStatusIconVariants({ status, className }))}
+      role="img"
+      aria-label={`Pick status: ${status}`}
       {...nativeProps}
     />
   );
