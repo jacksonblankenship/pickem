@@ -47,6 +47,7 @@ export function PickStatusBadge({
 
   return (
     <span
+      role="text"
       className={cn(pickStatusBadgeVariants({ status, className }))}
       {...nativeProps}>
       {getLabel()}
