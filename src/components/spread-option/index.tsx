@@ -1,8 +1,9 @@
 import { getTeamLogo, TeamAbbr } from '@/lib/team-logo-map';
 import { spreadFormatter } from '@/lib/utils';
+import { HTMLAttributes } from 'react';
 import { BaseOption } from '../base-option';
 
-interface SpreadOptionProps extends React.HTMLAttributes<HTMLDivElement> {
+interface SpreadOptionProps extends HTMLAttributes<HTMLDivElement> {
   teamAbbr: TeamAbbr;
   odds: number;
   spread: number;

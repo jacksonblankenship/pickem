@@ -1,6 +1,7 @@
 import { cn, oddsFormatter } from '@/lib/utils';
+import { HTMLAttributes } from 'react';
 
-interface BaseOptionProps extends React.HTMLAttributes<HTMLDivElement> {
+interface BaseOptionProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
   subtitle: string;
   odds: number;

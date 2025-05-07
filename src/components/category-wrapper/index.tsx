@@ -1,7 +1,13 @@
 import { PickCategory, PickStatus } from '@/lib/types';
 import { ChartArea, Dog, LucideIcon, Star } from 'lucide-react';
+import { HTMLAttributes } from 'react';
 import { PickStatusBadge } from '../pick-status-badge';
 import { PickStatusIcon } from '../pick-status-icon';
+
+interface CategoryWrapperProps extends HTMLAttributes<HTMLElement> {
+  category: PickCategory;
+  pickStatus: PickStatus;
+}
 
 const categoryDetails: Record<
   PickCategory,
@@ -24,11 +30,7 @@ const categoryDetails: Record<
   },
 };
 
-export function CategoryWrapper(props: {
-  children: React.ReactNode;
-  category: PickCategory;
-  pickStatus: PickStatus;
-}) {
+export function CategoryWrapper(props: CategoryWrapperProps) {
   const { description, Icon } = categoryDetails[props.category];
 
   return (

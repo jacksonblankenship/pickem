@@ -1,10 +1,11 @@
 import { PickStatus } from '@/lib/types';
 import { cn } from '@/lib/utils';
+import { HTMLAttributes } from 'react';
 import { entries } from 'remeda';
 import { PickStatusBadge } from '../pick-status-badge';
 import { PickStatusIcon } from '../pick-status-icon';
 
-interface PickOverviewProps extends React.HTMLAttributes<HTMLDivElement> {
+interface PickOverviewProps extends HTMLAttributes<HTMLDivElement> {
   picks: {
     favorite: PickStatus;
     underdog: PickStatus;

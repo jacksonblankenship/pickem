@@ -1,11 +1,11 @@
 import { PickStatus } from '@/lib/types';
 import { cn } from '@/lib/utils';
-import { cva } from 'class-variance-authority';
+import { cva, VariantProps } from 'class-variance-authority';
 import { HTMLAttributes } from 'react';
 
-interface PickStatusBadgeProps extends HTMLAttributes<HTMLSpanElement> {
-  status: PickStatus;
-}
+interface PickStatusBadgeProps
+  extends HTMLAttributes<HTMLSpanElement>,
+    VariantProps<typeof pickStatusBadgeVariants> {}
 
 const pickStatusBadgeVariants = cva('uppercase text-sm', {
   variants: {
