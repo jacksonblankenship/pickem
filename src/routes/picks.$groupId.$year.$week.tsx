@@ -1,3 +1,4 @@
+import { CategoryWrapper } from '@/components/category-wrapper';
 import { PickOverview } from '@/components/pick-overview';
 import { WeekSelector } from '@/components/week-selector';
 import { createFileRoute } from '@tanstack/react-router';
@@ -28,11 +29,15 @@ function RouteComponent() {
       />
       <PickOverview
         picks={{
-          favorite: 'not-picked',
+          favorite: 'locked',
           underdog: 'not-picked',
           total: 'not-picked',
         }}
       />
+      <hr />
+      <CategoryWrapper category="favorite" pickStatus="locked">
+        Some content...
+      </CategoryWrapper>
     </div>
   );
 }
