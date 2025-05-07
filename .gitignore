@@ -27,4 +27,4 @@ dist-ssr
 *storybook.log
 
 # Supabase
-supabase
+/supabase
