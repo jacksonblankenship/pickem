@@ -1,8 +1,9 @@
 import { TeamAbbr } from '@/lib/team-logo-map';
 import { pointTotalFormatter } from '@/lib/utils';
+import { HTMLAttributes } from 'react';
 import { BaseOption } from '../base-option';
 
-interface TotalOptionProps extends React.HTMLAttributes<HTMLDivElement> {
+interface TotalOptionProps extends HTMLAttributes<HTMLDivElement> {
   type: 'over' | 'under';
   odds: number;
   total: number;

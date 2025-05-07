@@ -1,8 +1,9 @@
 import { cn } from '@/lib/utils';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { HTMLAttributes } from 'react';
 import { Button } from '../ui/button';
 
-interface WeekSelectorProps extends React.HTMLAttributes<HTMLDivElement> {
+interface WeekSelectorProps extends HTMLAttributes<HTMLDivElement> {
   selectedWeek: number;
   latestAvailableWeek: number;
   totalWeeks?: number;

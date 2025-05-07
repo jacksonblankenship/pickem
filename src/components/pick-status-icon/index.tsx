@@ -1,6 +1,6 @@
 import { PickStatus } from '@/lib/types';
 import { cn } from '@/lib/utils';
-import { cva } from 'class-variance-authority';
+import { cva, VariantProps } from 'class-variance-authority';
 import {
   Circle,
   CircleCheckBig,
@@ -9,10 +9,11 @@ import {
   CircleX,
   Lock,
 } from 'lucide-react';
+import { HTMLAttributes } from 'react';
 
-interface PickStatusIconProps extends React.HTMLAttributes<SVGSVGElement> {
-  status: PickStatus;
-}
+interface PickStatusIconProps
+  extends HTMLAttributes<SVGSVGElement>,
+    VariantProps<typeof pickStatusIconVariants> {}
 
 const pickStatusIconVariants = cva('size-4', {
   variants: {
