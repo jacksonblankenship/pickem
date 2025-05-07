@@ -1,4 +1,4 @@
-import { PickStatus } from '@/lib/types';
+import { PickCategory, PickStatus } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { cva, VariantProps } from 'class-variance-authority';
 import {
@@ -30,7 +30,7 @@ const pickOverviewVariants = cva('flex items-center justify-between', {
 interface PickOverviewItemProps
   extends VariantProps<typeof pickOverviewVariants>,
     React.HTMLAttributes<HTMLDListElement> {
-  type: 'favorite' | 'underdog' | 'total';
+  type: PickCategory;
 }
 
 export function PickOverviewItem({

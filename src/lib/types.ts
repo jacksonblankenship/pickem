@@ -5,3 +5,5 @@ export type PickStatus =
   | 'loss'
   | 'push'
   | 'missed-pick';
+
+export type PickCategory = 'favorite' | 'underdog' | 'total';
