@@ -3,7 +3,7 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  build:
+  verify:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
