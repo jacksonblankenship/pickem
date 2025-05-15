@@ -3,8 +3,9 @@ import { getTeamLogo, TeamAbbr } from '@/lib/team-logo-map';
 import { cn } from '@/lib/utils';
 import { format, formatDistanceToNowStrict } from 'date-fns';
 import { Clock, MapPin } from 'lucide-react';
+import { HTMLAttributes } from 'react';
 
-interface MatchHeaderProps extends React.HTMLAttributes<HTMLElement> {
+interface MatchHeaderProps extends HTMLAttributes<HTMLElement> {
   homeTeamAbbr: TeamAbbr;
   awayTeamAbbr: TeamAbbr;
   kickoffTime: Date;

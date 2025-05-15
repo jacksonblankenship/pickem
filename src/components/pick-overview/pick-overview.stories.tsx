@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { PickOverview } from '.';
 
 const meta = {
-  title: 'Pickem/PickOverview/PickOverview',
+  title: 'Pickem/PickOverview',
   component: PickOverview,
   parameters: {},
   tags: ['autodocs'],
