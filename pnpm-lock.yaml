@@ -55,7 +55,7 @@ importers:
         version: 19.1.0(react@19.1.0)
       remeda:
         specifier: ^2.21.3
-        version: 2.21.9
+        version: 2.22.1
       sonner:
         specifier: ^2.0.3
         version: 2.0.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -2407,8 +2407,8 @@ packages:
   regenerator-runtime@0.14.1:
     resolution: {integrity: sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==}
 
-  remeda@2.21.9:
-    resolution: {integrity: sha512-TE8X1jfhzrQ6nbdwfTyHwiuzfBn3Dk7aCr8V/aY1DXLK/Rglp2yP/f/FALaP+/DdG6XOOlTxiRpKSRgAau3d4A==}
+  remeda@2.22.1:
+    resolution: {integrity: sha512-7bcggqt1D7sEmkpzuGowcsAfkO5Ae03+HFt6zA+AfJ/r5+wVJMq8DEHBAitbKWsdyeUX7qqjfi/jnH9HmdU3uA==}
 
   resolve-from@4.0.0:
     resolution: {integrity: sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==}
@@ -5054,7 +5054,7 @@ snapshots:
 
   regenerator-runtime@0.14.1: {}
 
-  remeda@2.21.9:
+  remeda@2.22.1:
     dependencies:
       type-fest: 4.41.0
 
