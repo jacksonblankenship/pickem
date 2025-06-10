@@ -19,7 +19,7 @@ importers:
         version: 2.50.0
       '@t3-oss/env-core':
         specifier: ^0.13.4
-        version: 0.13.7(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.56)
+        version: 0.13.8(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.56)
       '@tailwindcss/vite':
         specifier: ^4.1.5
         version: 4.1.8(vite@6.3.5(@types/node@22.15.31)(jiti@2.4.2)(lightningcss@1.30.1)(tsx@4.19.4)(yaml@2.7.1))
@@ -1074,8 +1074,8 @@ packages:
   '@supabase/supabase-js@2.50.0':
     resolution: {integrity: sha512-M1Gd5tPaaghYZ9OjeO1iORRqbTWFEz/cF3pPubRnMPzA+A8SiUsXXWDP+DWsASZcjEcVEcVQIAF38i5wrijYOg==}
 
-  '@t3-oss/env-core@0.13.7':
-    resolution: {integrity: sha512-e/SfMtpZeYwS1b0zaG7cGetcQdTbTFUXojDX+3ahdB8B20oZz1PPZngMZgZ95+eOK+NRy7XJSFLjkEWqfISCkg==}
+  '@t3-oss/env-core@0.13.8':
+    resolution: {integrity: sha512-L1inmpzLQyYu4+Q1DyrXsGJYCXbtXjC4cICw1uAKv0ppYPQv656lhZPU91Qd1VS6SO/bou1/q5ufVzBGbNsUpw==}
     peerDependencies:
       arktype: ^2.1.0
       typescript: '>=5.0.0'
@@ -3910,7 +3910,7 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@t3-oss/env-core@0.13.7(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.56)':
+  '@t3-oss/env-core@0.13.8(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.56)':
     optionalDependencies:
       arktype: 2.1.20
       typescript: 5.8.3
