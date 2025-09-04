@@ -15,8 +15,6 @@ async function fetchWeekSlateData(props: { year: number; week: number }) {
     .order('date', { ascending: true })
     .throwOnError();
 
-  console.log(data);
-
   const gameIds = data.map(g => g.id);
   const favoritePicked = data.some(g =>
     g.bet_options.some(

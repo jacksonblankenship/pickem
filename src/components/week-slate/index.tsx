@@ -1,10 +1,14 @@
+import { PropsWithClassName } from '@/lib/types';
+import { cn } from '@/lib/utils';
 import { useWeekSlateQuery } from '@/queries/week-slate-query';
-import { usePicksParamsStore } from '@/stores/picks-params-store';
+import { useSearch } from '@tanstack/react-router';
 import { WeekSlateProvider } from '../../context/week-slate-context';
 import { GameCard } from '../game-card';
 
-export function WeekSlate() {
-  const { week, year } = usePicksParamsStore();
+type WeekSlateProps = PropsWithClassName;
+
+export function WeekSlate(props: WeekSlateProps) {
+  const { week, year } = useSearch({ from: '/picks' });
   const weekSlateQuery = useWeekSlateQuery({ week: week, year: year });
 
   if (weekSlateQuery.isLoading) return 'Loading...';
@@ -19,7 +23,7 @@ export function WeekSlate() {
 
   return (
     <WeekSlateProvider data={weekSlateQuery.data}>
-      <div className="flex flex-col gap-4">
+      <div className={cn('flex flex-col gap-4', props.className)}>
         {weekSlateQuery.data.gameIds.map(gameId => (
           <GameCard gameId={gameId} key={gameId} />
         ))}

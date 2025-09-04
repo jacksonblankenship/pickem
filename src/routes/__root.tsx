@@ -25,12 +25,10 @@ function RootComponent() {
   useEffect(() => {
     if (session === null && location.pathname !== '/sign-in') {
       navigate({ to: '/sign-in' });
-      console.log('Navigating to "/sign-in"');
     }
 
     if (session !== null && location.pathname === '/sign-in') {
       navigate({ to: '/' });
-      console.log('Navigating to "/"');
     }
   }, [session, location.pathname]);
 

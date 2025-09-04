@@ -1,6 +1,6 @@
 import { BetOptionConfirmation } from '@/components/bet-option-confirmation';
+import { WeekHeader } from '@/components/week-header';
 import { WeekSlate } from '@/components/week-slate';
-import { usePicksParamsStore } from '@/stores/picks-params-store';
 import { createFileRoute } from '@tanstack/react-router';
 import { zodValidator } from '@tanstack/zod-adapter';
 import z from 'zod';
@@ -14,19 +14,15 @@ export const Route = createFileRoute('/picks')({
       week: z.number(),
     }),
   ),
-  beforeLoad: ({ search }) => {
-    usePicksParamsStore.getState().setParams({
-      groupId: search.groupId,
-      year: search.year,
-      week: search.week,
-    });
-  },
 });
 
 function RouteComponent() {
   return (
     <>
-      <WeekSlate />
+      <div className="flex flex-col gap-4">
+        <WeekHeader />
+        <WeekSlate />
+      </div>
       <BetOptionConfirmation />
     </>
   );
