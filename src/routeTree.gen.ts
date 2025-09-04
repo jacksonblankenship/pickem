@@ -9,50 +9,86 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as PicksGroupIdYearWeekRouteImport } from './routes/picks.$groupId.$year.$week'
+import { Route as SignInRouteImport } from './routes/sign-in'
+import { Route as PicksRouteImport } from './routes/picks'
+import { Route as IndexRouteImport } from './routes/index'
 
-const PicksGroupIdYearWeekRoute = PicksGroupIdYearWeekRouteImport.update({
-  id: '/picks/$groupId/$year/$week',
-  path: '/picks/$groupId/$year/$week',
+const SignInRoute = SignInRouteImport.update({
+  id: '/sign-in',
+  path: '/sign-in',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PicksRoute = PicksRouteImport.update({
+  id: '/picks',
+  path: '/picks',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/picks/$groupId/$year/$week': typeof PicksGroupIdYearWeekRoute
+  '/': typeof IndexRoute
+  '/picks': typeof PicksRoute
+  '/sign-in': typeof SignInRoute
 }
 export interface FileRoutesByTo {
-  '/picks/$groupId/$year/$week': typeof PicksGroupIdYearWeekRoute
+  '/': typeof IndexRoute
+  '/picks': typeof PicksRoute
+  '/sign-in': typeof SignInRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/picks/$groupId/$year/$week': typeof PicksGroupIdYearWeekRoute
+  '/': typeof IndexRoute
+  '/picks': typeof PicksRoute
+  '/sign-in': typeof SignInRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/picks/$groupId/$year/$week'
+  fullPaths: '/' | '/picks' | '/sign-in'
   fileRoutesByTo: FileRoutesByTo
-  to: '/picks/$groupId/$year/$week'
-  id: '__root__' | '/picks/$groupId/$year/$week'
+  to: '/' | '/picks' | '/sign-in'
+  id: '__root__' | '/' | '/picks' | '/sign-in'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  PicksGroupIdYearWeekRoute: typeof PicksGroupIdYearWeekRoute
+  IndexRoute: typeof IndexRoute
+  PicksRoute: typeof PicksRoute
+  SignInRoute: typeof SignInRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/picks/$groupId/$year/$week': {
-      id: '/picks/$groupId/$year/$week'
-      path: '/picks/$groupId/$year/$week'
-      fullPath: '/picks/$groupId/$year/$week'
-      preLoaderRoute: typeof PicksGroupIdYearWeekRouteImport
+    '/sign-in': {
+      id: '/sign-in'
+      path: '/sign-in'
+      fullPath: '/sign-in'
+      preLoaderRoute: typeof SignInRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/picks': {
+      id: '/picks'
+      path: '/picks'
+      fullPath: '/picks'
+      preLoaderRoute: typeof PicksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  PicksGroupIdYearWeekRoute: PicksGroupIdYearWeekRoute,
+  IndexRoute: IndexRoute,
+  PicksRoute: PicksRoute,
+  SignInRoute: SignInRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
