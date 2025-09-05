@@ -4,7 +4,7 @@ import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client
 import { createRouter, RouterProvider } from '@tanstack/react-router';
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
-import { SessionProvider } from './context/session-context';
+import { SessionProvider } from './providers/session-provider';
 import { routeTree } from './routeTree.gen';
 
 import './index.css';

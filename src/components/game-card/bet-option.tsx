@@ -60,9 +60,9 @@ export function BetOption(props: BetOptionProps) {
       ? options.spread[props.target]
       : options.total[props.target];
 
-  if (option === null) return <Skeleton className="h-8 w-full" />;
-
   const state = useMemo<VariantProps<typeof betOptionVariants>['state']>(() => {
+    if (option === null) return 'disabled';
+
     if (option.picked) return 'selected';
 
     if (props.type === 'spread') {
@@ -75,15 +75,9 @@ export function BetOption(props: BetOptionProps) {
     }
 
     return 'base';
-  }, [
-    option.picked,
-    option.line,
-    props.type,
-    props.target,
-    favoritePicked,
-    underdogPicked,
-    totalPicked,
-  ]);
+  }, [props.type, option, favoritePicked, underdogPicked, totalPicked]);
+
+  if (option === null) return <Skeleton className="h-8 w-full" />;
 
   const formattedIdentifier =
     props.type === 'spread'

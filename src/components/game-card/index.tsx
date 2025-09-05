@@ -1,7 +1,7 @@
 import { PropsWithClassName } from '@/lib/types';
 import { cn } from '@/lib/utils';
+import { GameCardProvider } from '@/providers/game-card-provider';
 import { useGameQuery } from '@/queries/game-query';
-import { GameCardProvider } from '../../context/game-card-context';
 import { Card, CardContent } from '../ui/card';
 import { Skeleton } from '../ui/skeleton';
 import { BetOption } from './bet-option';

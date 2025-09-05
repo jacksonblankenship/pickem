@@ -1,8 +1,8 @@
 import { PropsWithClassName } from '@/lib/types';
 import { cn } from '@/lib/utils';
+import { WeekSlateProvider } from '@/providers/week-slate-provider';
 import { useWeekSlateQuery } from '@/queries/week-slate-query';
 import { useSearch } from '@tanstack/react-router';
-import { WeekSlateProvider } from '../../context/week-slate-context';
 import { GameCard } from '../game-card';
 
 type WeekSlateProps = PropsWithClassName;

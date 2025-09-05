@@ -28,9 +28,9 @@ function RootComponent() {
     }
 
     if (session !== null && location.pathname === '/sign-in') {
-      navigate({ to: '/' });
+      navigate({ to: '/picks', search: { groupId: 1, year: 2025, week: 1 } });
     }
-  }, [session, location.pathname]);
+  }, [session, location.pathname, navigate]);
 
   const hideAppBar = matches.some(m => m.staticData?.hideAppBar === true);
 

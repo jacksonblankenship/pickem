@@ -1,7 +1,5 @@
+import { WeekSlateContext } from '@/context/week-slate-context';
 import { WeekSlateData } from '@/queries/week-slate-query';
-import { createContext, useContext } from 'react';
-
-const WeekSlateContext = createContext<WeekSlateData>(null!);
 
 export function WeekSlateProvider(props: {
   children: React.ReactNode;
@@ -12,8 +10,4 @@ export function WeekSlateProvider(props: {
       {props.children}
     </WeekSlateContext.Provider>
   );
-}
-
-export function useWeekSlateContext() {
-  return useContext(WeekSlateContext);
 }

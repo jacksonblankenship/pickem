@@ -1,7 +1,5 @@
+import { GameCardContext } from '@/context/game-card-context';
 import { GameData } from '@/queries/game-query';
-import { createContext, useContext } from 'react';
-
-const GameCardContext = createContext<GameData>(null!);
 
 export function GameCardProvider(props: {
   children: React.ReactNode;
@@ -12,8 +10,4 @@ export function GameCardProvider(props: {
       {props.children}
     </GameCardContext.Provider>
   );
-}
-
-export function useGameCardContext() {
-  return useContext(GameCardContext);
 }
