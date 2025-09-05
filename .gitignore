@@ -1,3 +1,8 @@
+# Environment variables
+.env
+.env.*
+!.env.example
+
 # Logs
 logs
 *.log
@@ -27,4 +32,4 @@ dist-ssr
 *storybook.log
 
 # Supabase
-supabase
+/supabase

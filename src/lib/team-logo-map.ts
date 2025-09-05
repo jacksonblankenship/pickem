@@ -68,6 +68,10 @@ const teamLogoMap = {
   WSH,
 } as const;
 
+export function isTeamAbbr(abbr: string): abbr is TeamAbbr {
+  return abbr in teamLogoMap;
+}
+
 export function getTeamLogo(teamAbbr: string) {
   return teamLogoMap[teamAbbr as keyof typeof teamLogoMap] || teamLogoMap.NFL;
 }

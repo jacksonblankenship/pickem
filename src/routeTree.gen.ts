@@ -8,81 +8,88 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-// Import Routes
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as SignInRouteImport } from './routes/sign-in'
+import { Route as PicksRouteImport } from './routes/picks'
+import { Route as IndexRouteImport } from './routes/index'
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as PicksGroupIdYearWeekImport } from './routes/picks.$groupId.$year.$week'
-
-// Create/Update Routes
-
-const PicksGroupIdYearWeekRoute = PicksGroupIdYearWeekImport.update({
-  id: '/picks/$groupId/$year/$week',
-  path: '/picks/$groupId/$year/$week',
-  getParentRoute: () => rootRoute,
+const SignInRoute = SignInRouteImport.update({
+  id: '/sign-in',
+  path: '/sign-in',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PicksRoute = PicksRouteImport.update({
+  id: '/picks',
+  path: '/picks',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
-// Populate the FileRoutesByPath interface
+export interface FileRoutesByFullPath {
+  '/': typeof IndexRoute
+  '/picks': typeof PicksRoute
+  '/sign-in': typeof SignInRoute
+}
+export interface FileRoutesByTo {
+  '/': typeof IndexRoute
+  '/picks': typeof PicksRoute
+  '/sign-in': typeof SignInRoute
+}
+export interface FileRoutesById {
+  __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
+  '/picks': typeof PicksRoute
+  '/sign-in': typeof SignInRoute
+}
+export interface FileRouteTypes {
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths: '/' | '/picks' | '/sign-in'
+  fileRoutesByTo: FileRoutesByTo
+  to: '/' | '/picks' | '/sign-in'
+  id: '__root__' | '/' | '/picks' | '/sign-in'
+  fileRoutesById: FileRoutesById
+}
+export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
+  PicksRoute: typeof PicksRoute
+  SignInRoute: typeof SignInRoute
+}
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/picks/$groupId/$year/$week': {
-      id: '/picks/$groupId/$year/$week'
-      path: '/picks/$groupId/$year/$week'
-      fullPath: '/picks/$groupId/$year/$week'
-      preLoaderRoute: typeof PicksGroupIdYearWeekImport
-      parentRoute: typeof rootRoute
+    '/sign-in': {
+      id: '/sign-in'
+      path: '/sign-in'
+      fullPath: '/sign-in'
+      preLoaderRoute: typeof SignInRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/picks': {
+      id: '/picks'
+      path: '/picks'
+      fullPath: '/picks'
+      preLoaderRoute: typeof PicksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
   }
-}
-
-// Create and export the route tree
-
-export interface FileRoutesByFullPath {
-  '/picks/$groupId/$year/$week': typeof PicksGroupIdYearWeekRoute
-}
-
-export interface FileRoutesByTo {
-  '/picks/$groupId/$year/$week': typeof PicksGroupIdYearWeekRoute
-}
-
-export interface FileRoutesById {
-  __root__: typeof rootRoute
-  '/picks/$groupId/$year/$week': typeof PicksGroupIdYearWeekRoute
-}
-
-export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/picks/$groupId/$year/$week'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/picks/$groupId/$year/$week'
-  id: '__root__' | '/picks/$groupId/$year/$week'
-  fileRoutesById: FileRoutesById
-}
-
-export interface RootRouteChildren {
-  PicksGroupIdYearWeekRoute: typeof PicksGroupIdYearWeekRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  PicksGroupIdYearWeekRoute: PicksGroupIdYearWeekRoute,
+  IndexRoute: IndexRoute,
+  PicksRoute: PicksRoute,
+  SignInRoute: SignInRoute,
 }
-
-export const routeTree = rootRoute
+export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-/* ROUTE_MANIFEST_START
-{
-  "routes": {
-    "__root__": {
-      "filePath": "__root.tsx",
-      "children": [
-        "/picks/$groupId/$year/$week"
-      ]
-    },
-    "/picks/$groupId/$year/$week": {
-      "filePath": "picks.$groupId.$year.$week.tsx"
-    }
-  }
-}
-ROUTE_MANIFEST_END */
