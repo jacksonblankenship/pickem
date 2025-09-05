@@ -8,9 +8,8 @@ import {
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { env } from '@/lib/env';
+import { supabase } from '@/supabase';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { createClient } from '@supabase/supabase-js';
 import { createFileRoute } from '@tanstack/react-router';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -22,11 +21,6 @@ export const Route = createFileRoute('/sign-in')({
     hideAppBar: true,
   },
 });
-
-const supabase = createClient(
-  env.VITE_SUPABASE_URL,
-  env.VITE_SUPABASE_ANON_KEY,
-);
 
 const formSchema = z.object({
   email: z.email('Invalid email address'),
@@ -42,7 +36,6 @@ function RouteComponent() {
     },
   });
 
-  // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const { error } = await supabase.auth.signInWithPassword({
       email: values.email,
@@ -75,7 +68,6 @@ function RouteComponent() {
               id="email"
             />
           </div>
-
           <div className="space-y-2">
             <Label htmlFor="password">Password</Label>
             <Input
@@ -86,7 +78,6 @@ function RouteComponent() {
             />
           </div>
         </CardContent>
-
         <CardFooter>
           <Button type="submit">Sign In</Button>
         </CardFooter>
