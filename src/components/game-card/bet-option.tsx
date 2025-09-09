@@ -1,3 +1,4 @@
+import { useHasGameStarted } from '@/hooks/use-has-game-started';
 import { PropsWithClassName } from '@/lib/types';
 import {
   cn,
@@ -54,6 +55,7 @@ export function BetOption(props: BetOptionProps) {
   } = useGameCardContext();
   const openDialog = useBetOptionConfirmationStore(s => s.openDialog);
   const { favoritePicked, underdogPicked, totalPicked } = useWeekSlateContext();
+  const hasGameStarted = useHasGameStarted(date);
 
   const option =
     props.type === 'spread'
@@ -65,6 +67,8 @@ export function BetOption(props: BetOptionProps) {
 
     if (option.picked) return 'selected';
 
+    if (hasGameStarted) return 'disabled';
+
     if (props.type === 'spread') {
       if (option.line < 0 && favoritePicked) return 'disabled';
       if (option.line > 0 && underdogPicked) return 'disabled';
@@ -75,7 +79,14 @@ export function BetOption(props: BetOptionProps) {
     }
 
     return 'base';
-  }, [props.type, option, favoritePicked, underdogPicked, totalPicked]);
+  }, [
+    props.type,
+    hasGameStarted,
+    option,
+    favoritePicked,
+    underdogPicked,
+    totalPicked,
+  ]);
 
   if (option === null) return <Skeleton className="h-8 w-full" />;
 
@@ -99,21 +110,23 @@ export function BetOption(props: BetOptionProps) {
     <button
       className={cn(betOptionVariants({ state }), props.className)}
       disabled={state !== 'base'}
-      onClick={() =>
-        openDialog({
-          awayTeamAbbr,
-          awayTeamLogo,
-          homeTeamAbbr,
-          homeTeamLogo,
-          type: props.type,
-          target: props.target,
-          line: option.line,
-          odds: option.odds,
-          date,
-          gameId: id,
-          betOptionId: option.id,
-        })
-      }>
+      onClick={() => {
+        if (state === 'base') {
+          openDialog({
+            awayTeamAbbr,
+            awayTeamLogo,
+            homeTeamAbbr,
+            homeTeamLogo,
+            type: props.type,
+            target: props.target,
+            line: option.line,
+            odds: option.odds,
+            date,
+            gameId: id,
+            betOptionId: option.id,
+          });
+        }
+      }}>
       <span className="mr-2 text-xs font-semibold">{formattedIdentifier}</span>
       <span className="mr-auto text-xs font-medium">{formattedLine}</span>
       <span className="text-xs">{formattedOdds}</span>

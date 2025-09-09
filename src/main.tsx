@@ -4,6 +4,7 @@ import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client
 import { createRouter, RouterProvider } from '@tanstack/react-router';
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
+import superjson from 'superjson';
 import { SessionProvider } from './providers/session-provider';
 import { routeTree } from './routeTree.gen';
 
@@ -15,6 +16,8 @@ const queryClient = new QueryClient();
 // Create a persister for the query client
 const asyncStoragePersister = createAsyncStoragePersister({
   storage: window.localStorage,
+  serialize: data => superjson.stringify(data),
+  deserialize: str => superjson.parse(str),
 });
 
 // Create a new router instance
