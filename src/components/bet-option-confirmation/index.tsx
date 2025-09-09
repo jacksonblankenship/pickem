@@ -46,7 +46,9 @@ export function BetOptionConfirmation() {
       ]);
     },
     onError: error => {
-      toast.error(error.message);
+      toast.error('Failed to lock in your pick. Please try again.', {
+        description: error.message,
+      });
     },
     onMutate: () => {
       setLoading(true);

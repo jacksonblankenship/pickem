@@ -117,23 +117,21 @@ export function BetOption(props: BetOptionProps) {
     <button
       className={cn(betOptionVariants({ state }), props.className)}
       disabled={state !== 'base'}
-      onClick={() => {
-        if (state === 'base') {
-          openDialog({
-            awayTeamAbbr,
-            awayTeamLogo,
-            homeTeamAbbr,
-            homeTeamLogo,
-            type: props.type,
-            target: props.target,
-            line: option.line,
-            odds: option.odds,
-            date,
-            gameId: id,
-            betOptionId: option.id,
-          });
-        }
-      }}>
+      onClick={() =>
+        openDialog({
+          awayTeamAbbr,
+          awayTeamLogo,
+          homeTeamAbbr,
+          homeTeamLogo,
+          type: props.type,
+          target: props.target,
+          line: option.line,
+          odds: option.odds,
+          date,
+          gameId: id,
+          betOptionId: option.id,
+        })
+      }>
       <span className="mr-2 text-xs font-semibold">{formattedIdentifier}</span>
       <span className="mr-auto text-xs font-medium">{formattedLine}</span>
       <span className="text-xs">{formattedOdds}</span>
