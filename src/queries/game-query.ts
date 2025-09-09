@@ -16,7 +16,7 @@ async function fetchGameData(gameId: number) {
         date,
         away_team:teams!games_away_team_id_teams_id_fk(abbr),
         home_team:teams!games_home_team_id_teams_id_fk(abbr),
-        bet_options(id, type, target, line, odds, picks(id))`,
+        bet_options(id, type, target, line, odds, picks(id, status))`,
       )
       .eq('id', gameId)
       .single()
@@ -36,6 +36,7 @@ async function fetchGameData(gameId: number) {
             line: Number(o.line),
             odds: Number(o.odds),
             picked: (o.picks?.length ?? 0) > 0,
+            status: o.picks?.[0]?.status ?? null,
           }
         : null;
 

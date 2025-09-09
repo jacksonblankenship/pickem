@@ -1,3 +1,4 @@
+import { useHasGameStarted } from '@/hooks/use-has-game-started';
 import { PropsWithClassName } from '@/lib/types';
 import {
   cn,
@@ -22,6 +23,8 @@ const betOptionVariants = cva(
           'border-gray-200 bg-white text-gray-400 opacity-40 cursor-not-allowed',
         selected:
           'border border-indigo-400 bg-indigo-50 text-indigo-900 ring-2 ring-indigo-200 font-semibold',
+        won: 'border border-green-400 bg-green-50 text-green-900 ring-2 ring-green-200 font-semibold',
+        lost: 'border border-red-400 bg-red-50 text-red-900 ring-2 ring-red-200 font-semibold',
       },
     },
     defaultVariants: { state: 'base' },
@@ -54,6 +57,7 @@ export function BetOption(props: BetOptionProps) {
   } = useGameCardContext();
   const openDialog = useBetOptionConfirmationStore(s => s.openDialog);
   const { favoritePicked, underdogPicked, totalPicked } = useWeekSlateContext();
+  const hasGameStarted = useHasGameStarted(date);
 
   const option =
     props.type === 'spread'
@@ -61,21 +65,35 @@ export function BetOption(props: BetOptionProps) {
       : options.total[props.target];
 
   const state = useMemo<VariantProps<typeof betOptionVariants>['state']>(() => {
+    // If the option is not available for some reason, default to disabled
     if (option === null) return 'disabled';
 
-    if (option.picked) return 'selected';
+    // Always show the user's pick, regardless of game start
+    if (option.picked === true) {
+      if (option.status === 'won') return 'won';
+      if (option.status === 'lost') return 'lost';
+      return 'selected'; // covers 'pending'
+    }
+
+    // If not picked, fall back to availability rules
+    if (hasGameStarted === true) return 'disabled';
 
     if (props.type === 'spread') {
       if (option.line < 0 && favoritePicked) return 'disabled';
       if (option.line > 0 && underdogPicked) return 'disabled';
     }
 
-    if (props.type === 'total') {
-      if (totalPicked) return 'disabled';
-    }
+    if (props.type === 'total' && totalPicked === true) return 'disabled';
 
     return 'base';
-  }, [props.type, option, favoritePicked, underdogPicked, totalPicked]);
+  }, [
+    option,
+    props.type,
+    hasGameStarted,
+    favoritePicked,
+    underdogPicked,
+    totalPicked,
+  ]);
 
   if (option === null) return <Skeleton className="h-8 w-full" />;
 

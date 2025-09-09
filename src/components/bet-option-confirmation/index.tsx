@@ -1,3 +1,4 @@
+import { useHasGameStarted } from '@/hooks/use-has-game-started';
 import {
   oddsFormatter,
   pointTotalFormatter,
@@ -8,6 +9,7 @@ import { supabase } from '@/supabase';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSearch } from '@tanstack/react-router';
 import { Loader2, Lock } from 'lucide-react';
+import { toast } from 'sonner';
 import { useBetOptionConfirmationStore } from '../../stores/bet-option-confirmation-store';
 import {
   AlertDialog,
@@ -24,9 +26,15 @@ export function BetOptionConfirmation() {
     useBetOptionConfirmationStore();
   const queryClient = useQueryClient();
   const { week, year } = useSearch({ from: '/picks' });
+  const hasGameStarted = useHasGameStarted(payload?.date);
 
   const { mutate } = useMutation({
     mutationFn: async () => {
+      if (hasGameStarted)
+        throw new Error(
+          `${payload?.awayTeamAbbr} @ ${payload?.homeTeamAbbr} has already started`,
+        );
+
       await Promise.all([
         supabase
           .from('picks')
@@ -36,6 +44,11 @@ export function BetOptionConfirmation() {
           .throwOnError(),
         waitFor(1000),
       ]);
+    },
+    onError: error => {
+      toast.error('Failed to lock in your pick. Please try again.', {
+        description: error.message,
+      });
     },
     onMutate: () => {
       setLoading(true);

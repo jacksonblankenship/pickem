@@ -117,18 +117,21 @@ export type Database = {
           bet_option_id: number | null;
           createdAt: string;
           id: number;
+          status: Database['public']['Enums']['pick_status'];
           user_id: string;
         };
         Insert: {
           bet_option_id?: number | null;
           createdAt?: string;
           id?: never;
+          status?: Database['public']['Enums']['pick_status'];
           user_id?: string;
         };
         Update: {
           bet_option_id?: number | null;
           createdAt?: string;
           id?: never;
+          status?: Database['public']['Enums']['pick_status'];
           user_id?: string;
         };
         Relationships: [
