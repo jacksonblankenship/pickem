@@ -19,9 +19,9 @@ function RootComponent() {
 
   return (
     <>
-      <div className="flex h-dvh flex-col">
+      <div className="flex min-h-dvh flex-col">
         {!hideAppBar && <AppBar />}
-        <main className="min-h-0 flex-1 overflow-y-auto pb-[env(safe-area-inset-bottom)]">
+        <main className="flex-1 pb-[env(safe-area-inset-bottom)]">
           <div className="container mx-auto px-4 py-4">
             <Outlet />
           </div>
