@@ -68,7 +68,7 @@ const formSchema = z
     email: z.email('Please enter a valid email address'),
     password: z
       .string()
-      .min(8, 'Use 8 or more characters for your password”')
+      .min(8, 'Use 8 or more characters for your password')
       .max(72, 'Password must be under 72 characters')
       .refine(
         pw =>
