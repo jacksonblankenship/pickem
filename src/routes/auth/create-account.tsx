@@ -87,7 +87,7 @@ const formSchema = z
 const SignInButton = createLink(Button);
 
 function RouteComponent() {
-  const [isConfirmingEmail, setIsConfirmingEmail] = useState(true);
+  const [isConfirmingEmail, setIsConfirmingEmail] = useState(false);
 
   const { mutate: createAccount, isPending: isCreateAccountPending } =
     useMutation({
