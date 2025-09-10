@@ -191,7 +191,7 @@ function RouteComponent() {
                 <Input
                   id="email"
                   type="email"
-                  placeholder="m@example.com"
+                  placeholder="user@example.com"
                   required
                   {...form.register('email')}
                 />
