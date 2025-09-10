@@ -32,10 +32,7 @@ export function AppBar({ className }: AppBarProps) {
         className,
       )}>
       <div className="container mx-auto flex h-14 items-center justify-between px-4">
-        <Link
-          to="/picks"
-          search={{ groupId: 1, year: 2025, week: 1 }}
-          className="font-semibold tracking-tight hover:opacity-80">
+        <Link to="/" className="font-semibold tracking-tight hover:opacity-80">
           pickem
         </Link>
         <Button variant="ghost" size="sm" onClick={() => mutate()}>
