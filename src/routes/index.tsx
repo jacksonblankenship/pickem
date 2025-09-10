@@ -8,12 +8,6 @@ export const Route = createFileRoute('/')({
         to: '/auth/sign-in',
       });
     }
-
-    if (context.session.user.email_confirmed_at === undefined) {
-      throw redirect({
-        to: '/auth/confirm-email',
-      });
-    }
   },
   loader: () =>
     redirect({ to: '/picks', search: { groupId: 1, year: 2025, week: 1 } }),

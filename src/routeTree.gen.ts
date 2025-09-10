@@ -11,9 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PicksRouteImport } from './routes/picks'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthSignUpRouteImport } from './routes/auth/sign-up'
 import { Route as AuthSignInRouteImport } from './routes/auth/sign-in'
-import { Route as AuthConfirmEmailRouteImport } from './routes/auth/confirm-email'
+import { Route as AuthCreateAccountRouteImport } from './routes/auth/create-account'
 
 const PicksRoute = PicksRouteImport.update({
   id: '/picks',
@@ -25,69 +24,49 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthSignUpRoute = AuthSignUpRouteImport.update({
-  id: '/auth/sign-up',
-  path: '/auth/sign-up',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AuthSignInRoute = AuthSignInRouteImport.update({
   id: '/auth/sign-in',
   path: '/auth/sign-in',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthConfirmEmailRoute = AuthConfirmEmailRouteImport.update({
-  id: '/auth/confirm-email',
-  path: '/auth/confirm-email',
+const AuthCreateAccountRoute = AuthCreateAccountRouteImport.update({
+  id: '/auth/create-account',
+  path: '/auth/create-account',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/picks': typeof PicksRoute
-  '/auth/confirm-email': typeof AuthConfirmEmailRoute
+  '/auth/create-account': typeof AuthCreateAccountRoute
   '/auth/sign-in': typeof AuthSignInRoute
-  '/auth/sign-up': typeof AuthSignUpRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/picks': typeof PicksRoute
-  '/auth/confirm-email': typeof AuthConfirmEmailRoute
+  '/auth/create-account': typeof AuthCreateAccountRoute
   '/auth/sign-in': typeof AuthSignInRoute
-  '/auth/sign-up': typeof AuthSignUpRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/picks': typeof PicksRoute
-  '/auth/confirm-email': typeof AuthConfirmEmailRoute
+  '/auth/create-account': typeof AuthCreateAccountRoute
   '/auth/sign-in': typeof AuthSignInRoute
-  '/auth/sign-up': typeof AuthSignUpRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/picks'
-    | '/auth/confirm-email'
-    | '/auth/sign-in'
-    | '/auth/sign-up'
+  fullPaths: '/' | '/picks' | '/auth/create-account' | '/auth/sign-in'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/picks' | '/auth/confirm-email' | '/auth/sign-in' | '/auth/sign-up'
-  id:
-    | '__root__'
-    | '/'
-    | '/picks'
-    | '/auth/confirm-email'
-    | '/auth/sign-in'
-    | '/auth/sign-up'
+  to: '/' | '/picks' | '/auth/create-account' | '/auth/sign-in'
+  id: '__root__' | '/' | '/picks' | '/auth/create-account' | '/auth/sign-in'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PicksRoute: typeof PicksRoute
-  AuthConfirmEmailRoute: typeof AuthConfirmEmailRoute
+  AuthCreateAccountRoute: typeof AuthCreateAccountRoute
   AuthSignInRoute: typeof AuthSignInRoute
-  AuthSignUpRoute: typeof AuthSignUpRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -106,13 +85,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/auth/sign-up': {
-      id: '/auth/sign-up'
-      path: '/auth/sign-up'
-      fullPath: '/auth/sign-up'
-      preLoaderRoute: typeof AuthSignUpRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/auth/sign-in': {
       id: '/auth/sign-in'
       path: '/auth/sign-in'
@@ -120,11 +92,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSignInRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/auth/confirm-email': {
-      id: '/auth/confirm-email'
-      path: '/auth/confirm-email'
-      fullPath: '/auth/confirm-email'
-      preLoaderRoute: typeof AuthConfirmEmailRouteImport
+    '/auth/create-account': {
+      id: '/auth/create-account'
+      path: '/auth/create-account'
+      fullPath: '/auth/create-account'
+      preLoaderRoute: typeof AuthCreateAccountRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -133,9 +105,8 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PicksRoute: PicksRoute,
-  AuthConfirmEmailRoute: AuthConfirmEmailRoute,
+  AuthCreateAccountRoute: AuthCreateAccountRoute,
   AuthSignInRoute: AuthSignInRoute,
-  AuthSignUpRoute: AuthSignUpRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

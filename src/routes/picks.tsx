@@ -13,12 +13,6 @@ export const Route = createFileRoute('/picks')({
         to: '/auth/sign-in',
       });
     }
-
-    if (context.session.user.email_confirmed_at === undefined) {
-      throw redirect({
-        to: '/auth/confirm-email',
-      });
-    }
   },
   validateSearch: zodValidator(
     z.object({

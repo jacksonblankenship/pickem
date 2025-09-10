@@ -1,7 +1,9 @@
 import { Session } from '@supabase/supabase-js';
 import { createContext, useContext } from 'react';
 
-export const SessionContext = createContext<{ session: Session | null }>({
+export const SessionContext = createContext<{
+  session: Session | null;
+}>({
   session: null,
 });
 
