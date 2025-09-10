@@ -1,4 +1,4 @@
-import { BetOptionConfirmation } from '@/components/bet-option-confirmation';
+import { BetOptionConfirmation } from '@/components/game-card/bet-option-confirmation';
 import { WeekHeader } from '@/components/week-header';
 import { WeekSlate } from '@/components/week-slate';
 import { createFileRoute, redirect } from '@tanstack/react-router';
