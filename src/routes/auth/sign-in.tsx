@@ -44,11 +44,14 @@ const SignUpButton = createLink(Button);
 
 function RouteComponent() {
   const { mutate: signIn, isPending: isSignInPending } = useMutation({
-    mutationFn: (values: z.infer<typeof formSchema>) =>
-      supabase.auth.signInWithPassword({
+    mutationFn: async (values: z.infer<typeof formSchema>) => {
+      const { error } = await supabase.auth.signInWithPassword({
         email: values.email,
         password: values.password,
-      }),
+      });
+
+      if (error) throw error;
+    },
     onError: error => {
       toast.error('Failed to sign in', {
         description: error.message,
@@ -116,7 +119,7 @@ function RouteComponent() {
               )}
             </Button>
             <SignUpButton
-              variant="outline"
+              variant="link"
               className="w-full"
               to="/auth/create-account">
               Create Account

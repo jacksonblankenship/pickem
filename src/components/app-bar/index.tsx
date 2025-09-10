@@ -11,7 +11,11 @@ type AppBarProps = {
 
 export function AppBar({ className }: AppBarProps) {
   const { mutate } = useMutation({
-    mutationFn: () => supabase.auth.signOut(),
+    mutationFn: async () => {
+      const { error } = await supabase.auth.signOut();
+
+      if (error) throw error;
+    },
     onError: error => {
       toast.error('Failed to sign out', {
         description: error.message,

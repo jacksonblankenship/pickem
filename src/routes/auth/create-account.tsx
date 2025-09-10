@@ -92,14 +92,17 @@ function RouteComponent() {
 
   const { mutate: createAccount, isPending: isCreateAccountPending } =
     useMutation({
-      mutationFn: (values: z.infer<typeof formSchema>) =>
-        supabase.auth.signUp({
+      mutationFn: async (values: z.infer<typeof formSchema>) => {
+        const { error } = await supabase.auth.signUp({
           email: values.email,
           password: values.password,
           options: {
             emailRedirectTo: env.VITE_VERCEL_URL,
           },
-        }),
+        });
+
+        if (error) throw error;
+      },
       onError: error => {
         toast.error('Failed to create account', { description: error.message });
       },
@@ -112,14 +115,17 @@ function RouteComponent() {
     mutate: resendVerificationEmail,
     isPending: isResendingVerificationEmail,
   } = useMutation({
-    mutationFn: (values: z.infer<typeof formSchema>) =>
-      supabase.auth.resend({
+    mutationFn: async (values: z.infer<typeof formSchema>) => {
+      const { error } = await supabase.auth.resend({
         type: 'signup',
         email: values.email,
         options: {
           emailRedirectTo: env.VITE_VERCEL_URL,
         },
-      }),
+      });
+
+      if (error) throw error;
+    },
     onError: error => {
       toast.error('Failed to resend verification email', {
         description: error.message,
@@ -259,10 +265,7 @@ function RouteComponent() {
                 'Create Account'
               )}
             </Button>
-            <SignInButton
-              variant="outline"
-              className="w-full"
-              to="/auth/sign-in">
+            <SignInButton variant="link" className="w-full" to="/auth/sign-in">
               Sign In
             </SignInButton>
           </CardFooter>
