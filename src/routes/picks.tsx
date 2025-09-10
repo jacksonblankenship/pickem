@@ -10,13 +10,7 @@ export const Route = createFileRoute('/picks')({
   beforeLoad: async ({ context }) => {
     if (context.session === null) {
       throw redirect({
-        to: '/auth/sign-in',
-      });
-    }
-
-    if (context.session.user.email_confirmed_at === undefined) {
-      throw redirect({
-        to: '/auth/confirm-email',
+        to: '/sign-in',
       });
     }
   },

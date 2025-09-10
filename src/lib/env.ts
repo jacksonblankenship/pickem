@@ -11,6 +11,11 @@ export const env = createEnv({
   client: {
     VITE_SUPABASE_URL: z.url(),
     VITE_SUPABASE_ANON_KEY: z.string().min(1),
+    VITE_VERCEL_URL: z.preprocess(host => {
+      const protocol = import.meta.env.PROD ? 'https' : 'http';
+
+      return `${protocol}://${host}`;
+    }, z.url()),
   },
 
   /**
