@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { env } from '@/lib/env';
+import { getAppUrl } from '@/lib/utils';
 import { supabase } from '@/supabase';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Label } from '@radix-ui/react-label';
@@ -97,7 +97,7 @@ function RouteComponent() {
           email: values.email,
           password: values.password,
           options: {
-            emailRedirectTo: env.VITE_VERCEL_URL,
+            emailRedirectTo: getAppUrl(),
           },
         });
 
@@ -120,7 +120,7 @@ function RouteComponent() {
         type: 'signup',
         email: values.email,
         options: {
-          emailRedirectTo: env.VITE_VERCEL_URL,
+          emailRedirectTo: getAppUrl(),
         },
       });
 

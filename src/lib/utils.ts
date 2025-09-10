@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { env } from './env';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -38,4 +39,17 @@ export const spreadFormatter = new Intl.NumberFormat('en-US', {
  */
 export function waitFor(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+/**
+ * Returns the URL of the app depending on the environment
+ * @returns The URL of the app
+ */
+export function getAppUrl() {
+  if (env.VITE_VERCEL_ENV === 'development') return `http://localhost:5173`;
+
+  if (env.VITE_VERCEL_ENV === 'preview')
+    return `https://${env.VITE_VERCEL_URL}`;
+
+  return `https://${env.VITE_VERCEL_PROJECT_PRODUCTION_URL}`;
 }
