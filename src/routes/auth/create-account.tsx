@@ -97,7 +97,7 @@ function RouteComponent() {
           email: values.email,
           password: values.password,
           options: {
-            emailRedirectTo: env.VITE_APP_ORIGIN,
+            emailRedirectTo: env.VITE_VERCEL_URL,
           },
         }),
       onError: error => {
@@ -117,7 +117,7 @@ function RouteComponent() {
         type: 'signup',
         email: values.email,
         options: {
-          emailRedirectTo: env.VITE_APP_ORIGIN,
+          emailRedirectTo: env.VITE_VERCEL_URL,
         },
       }),
     onError: error => {
