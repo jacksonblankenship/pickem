@@ -8,13 +8,17 @@ import z from 'zod';
 export const Route = createFileRoute('/picks')({
   component: RouteComponent,
   beforeLoad: async ({ context }) => {
-    if (context.session === null)
+    if (context.session === null) {
       throw redirect({
         to: '/auth/sign-in',
-        search: {
-          redirect: location.href,
-        },
       });
+    }
+
+    if (context.session.user.email_confirmed_at === undefined) {
+      throw redirect({
+        to: '/auth/confirm-email',
+      });
+    }
   },
   validateSearch: zodValidator(
     z.object({

@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/input';
 import { supabase } from '@/supabase';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Label } from '@radix-ui/react-label';
+import { useMutation } from '@tanstack/react-query';
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import { Loader2 } from 'lucide-react';
 import { useForm } from 'react-hook-form';
@@ -19,13 +20,20 @@ import z from 'zod';
 export const Route = createFileRoute('/auth/sign-up')({
   component: RouteComponent,
   beforeLoad: async ({ context }) => {
-    if (context.session !== null)
+    // If the user is not logged in, return
+    if (context.session === null) return;
+
+    // If the user is logged in but their email is not confirmed, redirect to the check email page
+    if (context.session.user.email_confirmed_at === undefined) {
       throw redirect({
-        to: '/',
-        search: {
-          redirect: location.href,
-        },
+        to: '/auth/confirm-email',
       });
+    }
+
+    // If the user is logged in and their email is confirmed, redirect to the home page
+    throw redirect({
+      to: '/',
+    });
   },
   staticData: {
     hideAppBar: true,
@@ -44,6 +52,20 @@ const formSchema = z
   });
 
 function RouteComponent() {
+  const { mutate, isPending } = useMutation({
+    mutationFn: (values: z.infer<typeof formSchema>) =>
+      supabase.auth.signUp({
+        email: values.email,
+        password: values.password,
+        options: {
+          emailRedirectTo: location.origin,
+        },
+      }),
+    onError: error => {
+      toast.error('Failed to sign up', { description: error.message });
+    },
+  });
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     mode: 'onChange',
@@ -52,23 +74,13 @@ function RouteComponent() {
       password: '',
       confirmPassword: '',
     },
+    disabled: isPending,
   });
-
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    const { error } = await supabase.auth.signUp({
-      email: values.email,
-      password: values.password,
-    });
-
-    if (error) {
-      toast.error('Failed to sign up', { description: error.message });
-    }
-  }
 
   return (
     <form
       autoComplete="on"
-      onSubmit={form.handleSubmit(onSubmit)}
+      onSubmit={form.handleSubmit(data => mutate(data))}
       className="absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2 px-4 md:w-1/2 md:max-w-sm">
       <Card>
         <CardHeader>
@@ -121,11 +133,8 @@ function RouteComponent() {
         <CardFooter>
           <Button
             type="submit"
-            disabled={
-              form.formState.isValid === false ||
-              form.formState.isSubmitting === true
-            }>
-            {form.formState.isSubmitting ? (
+            disabled={form.formState.isValid === false || isPending === true}>
+            {isPending ? (
               <Loader2 className="h-4 w-4 animate-spin" />
             ) : (
               'Sign Up'

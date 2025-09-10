@@ -5,6 +5,7 @@ import {
   createRouter,
   RouterProvider as TanStackRouterProvider,
 } from '@tanstack/react-router';
+import { useEffect } from 'react';
 
 export type RouterContext = {
   session: Session | null;
@@ -31,6 +32,11 @@ const router = createRouter({
 
 export function RouterProvider() {
   const { session } = useSessionContext();
+
+  useEffect(() => {
+    // Invalidate the router to re-run loaders and beforeLoad guards when the session changes
+    router.invalidate();
+  }, [session]);
 
   return <TanStackRouterProvider router={router} context={{ session }} />;
 }
