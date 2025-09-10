@@ -1,4 +1,5 @@
-import { createFileRoute, redirect } from '@tanstack/react-router';
+import { supabase } from '@/supabase';
+import { createFileRoute, notFound, redirect } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/')({
   component: RouteComponent,
@@ -9,8 +10,25 @@ export const Route = createFileRoute('/')({
       });
     }
   },
-  loader: () =>
-    redirect({ to: '/picks', search: { groupId: 1, year: 2025, week: 1 } }),
+  loader: async () => {
+    /**
+     * Determine the latest year and week from the games table that has bet options available.
+     */
+    const { data } = await supabase
+      .from('games')
+      .select('week, year, bet_options!inner(id)')
+      .order('year', { ascending: false })
+      .order('week', { ascending: false })
+      .limit(1)
+      .maybeSingle()
+      .throwOnError();
+
+    if (data === null) throw notFound();
+
+    const { year, week } = data;
+
+    return redirect({ to: '/picks', search: { groupId: 1, year, week } });
+  },
 });
 
 function RouteComponent() {

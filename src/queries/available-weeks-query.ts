@@ -21,6 +21,7 @@ async function fetchAvailableWeeks(year: number) {
 
   return weeks;
 }
+
 export function useAvailableWeeksQuery() {
   const { year } = useSearch({ from: '/picks' });
 
