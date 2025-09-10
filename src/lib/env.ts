@@ -1,8 +1,6 @@
 import { createEnv } from '@t3-oss/env-core';
 import { z } from 'zod';
 
-console.log(import.meta.env);
-
 export const env = createEnv({
   /**
    * The prefix that client-side variables must have. This is enforced both at
@@ -13,7 +11,11 @@ export const env = createEnv({
   client: {
     VITE_SUPABASE_URL: z.url(),
     VITE_SUPABASE_ANON_KEY: z.string().min(1),
-    VITE_VERCEL_URL: z.string().min(1),
+    VITE_VERCEL_URL: z.preprocess(host => {
+      const protocol = import.meta.env.PROD ? 'https' : 'http';
+
+      return `${protocol}://${host}`;
+    }, z.url()),
   },
 
   /**
