@@ -8,6 +8,7 @@ import './index.css';
 import { env } from './lib/env';
 
 console.log(env.VITE_VERCEL_URL);
+console.log(import.meta.env);
 
 const rootElement = document.getElementById('root')!;
 if (!rootElement.innerHTML) {
