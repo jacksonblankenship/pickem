@@ -10,13 +10,22 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { supabase } from '@/supabase';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, redirect } from '@tanstack/react-router';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import z from 'zod';
 
-export const Route = createFileRoute('/sign-in')({
+export const Route = createFileRoute('/auth/sign-in')({
   component: RouteComponent,
+  beforeLoad: async ({ context }) => {
+    if (context.session !== null)
+      throw redirect({
+        to: '/',
+        search: {
+          redirect: location.href,
+        },
+      });
+  },
   staticData: {
     hideAppBar: true,
   },

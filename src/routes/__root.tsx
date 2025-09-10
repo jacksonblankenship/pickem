@@ -1,37 +1,20 @@
 import { AppBar } from '@/components/app-bar';
 import { Toaster } from '@/components/ui/sonner';
-import { useSessionContext } from '@/context/session-context';
+import { RouterContext } from '@/providers/router-provider';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import {
-  createRootRoute,
+  createRootRouteWithContext,
   Outlet,
-  useLocation,
   useMatches,
-  useNavigate,
 } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
-import { useEffect } from 'react';
 
-export const Route = createRootRoute({
+export const Route = createRootRouteWithContext<RouterContext>()({
   component: RootComponent,
 });
 
 function RootComponent() {
   const matches = useMatches();
-  const { session } = useSessionContext();
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  useEffect(() => {
-    if (session === null && location.pathname !== '/sign-in') {
-      navigate({ to: '/sign-in' });
-    }
-
-    if (session !== null && location.pathname === '/sign-in') {
-      navigate({ to: '/picks', search: { groupId: 1, year: 2025, week: 1 } });
-    }
-  }, [session, location.pathname, navigate]);
-
   const hideAppBar = matches.some(m => m.staticData?.hideAppBar === true);
 
   return (

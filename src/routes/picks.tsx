@@ -1,12 +1,21 @@
 import { BetOptionConfirmation } from '@/components/bet-option-confirmation';
 import { WeekHeader } from '@/components/week-header';
 import { WeekSlate } from '@/components/week-slate';
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, redirect } from '@tanstack/react-router';
 import { zodValidator } from '@tanstack/zod-adapter';
 import z from 'zod';
 
 export const Route = createFileRoute('/picks')({
   component: RouteComponent,
+  beforeLoad: async ({ context }) => {
+    if (context.session === null)
+      throw redirect({
+        to: '/auth/sign-in',
+        search: {
+          redirect: location.href,
+        },
+      });
+  },
   validateSearch: zodValidator(
     z.object({
       groupId: z.number(),
