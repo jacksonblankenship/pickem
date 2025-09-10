@@ -2,8 +2,8 @@ import { useHasGameStarted } from '@/hooks/use-has-game-started';
 import { PropsWithClassName } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { formatInTimeZone } from 'date-fns-tz';
-import { Lock } from 'lucide-react';
 import { useGameCardContext } from '../../context/game-card-context';
+
 type GameHeaderProps = PropsWithClassName;
 
 export function GameHeader(props: GameHeaderProps) {
@@ -11,8 +11,9 @@ export function GameHeader(props: GameHeaderProps) {
   const hasGameStarted = useHasGameStarted(date);
 
   return (
-    <div className={cn('flex items-center justify-between', props.className)}>
-      <p className="flex items-center gap-1 text-xs text-slate-600">
+    <div
+      className={cn('flex h-6 items-center justify-between', props.className)}>
+      <span className="flex items-center gap-1 text-xs text-slate-600">
         {date === null
           ? 'TBD'
           : formatInTimeZone(
@@ -20,10 +21,9 @@ export function GameHeader(props: GameHeaderProps) {
               Intl.DateTimeFormat().resolvedOptions().timeZone,
               "EEE '•' h:mm a",
             )}
-      </p>
+      </span>
       {date !== null && hasGameStarted && (
-        <span className="bg-muted text-muted-foreground flex items-center gap-1 rounded-md px-2 py-1 text-xs">
-          <Lock className="size-3" />
+        <span className="bg-muted text-muted-foreground flex items-center gap-1 rounded-sm px-2 py-1 text-xs">
           Picks Closed
         </span>
       )}
