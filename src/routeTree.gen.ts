@@ -9,14 +9,24 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SignInRouteImport } from './routes/sign-in'
 import { Route as PicksRouteImport } from './routes/picks'
+import { Route as CreateAccountRouteImport } from './routes/create-account'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthSignInRouteImport } from './routes/auth/sign-in'
-import { Route as AuthCreateAccountRouteImport } from './routes/auth/create-account'
 
+const SignInRoute = SignInRouteImport.update({
+  id: '/sign-in',
+  path: '/sign-in',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PicksRoute = PicksRouteImport.update({
   id: '/picks',
   path: '/picks',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CreateAccountRoute = CreateAccountRouteImport.update({
+  id: '/create-account',
+  path: '/create-account',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -24,58 +34,62 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthSignInRoute = AuthSignInRouteImport.update({
-  id: '/auth/sign-in',
-  path: '/auth/sign-in',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthCreateAccountRoute = AuthCreateAccountRouteImport.update({
-  id: '/auth/create-account',
-  path: '/auth/create-account',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/create-account': typeof CreateAccountRoute
   '/picks': typeof PicksRoute
-  '/auth/create-account': typeof AuthCreateAccountRoute
-  '/auth/sign-in': typeof AuthSignInRoute
+  '/sign-in': typeof SignInRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/create-account': typeof CreateAccountRoute
   '/picks': typeof PicksRoute
-  '/auth/create-account': typeof AuthCreateAccountRoute
-  '/auth/sign-in': typeof AuthSignInRoute
+  '/sign-in': typeof SignInRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/create-account': typeof CreateAccountRoute
   '/picks': typeof PicksRoute
-  '/auth/create-account': typeof AuthCreateAccountRoute
-  '/auth/sign-in': typeof AuthSignInRoute
+  '/sign-in': typeof SignInRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/picks' | '/auth/create-account' | '/auth/sign-in'
+  fullPaths: '/' | '/create-account' | '/picks' | '/sign-in'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/picks' | '/auth/create-account' | '/auth/sign-in'
-  id: '__root__' | '/' | '/picks' | '/auth/create-account' | '/auth/sign-in'
+  to: '/' | '/create-account' | '/picks' | '/sign-in'
+  id: '__root__' | '/' | '/create-account' | '/picks' | '/sign-in'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CreateAccountRoute: typeof CreateAccountRoute
   PicksRoute: typeof PicksRoute
-  AuthCreateAccountRoute: typeof AuthCreateAccountRoute
-  AuthSignInRoute: typeof AuthSignInRoute
+  SignInRoute: typeof SignInRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sign-in': {
+      id: '/sign-in'
+      path: '/sign-in'
+      fullPath: '/sign-in'
+      preLoaderRoute: typeof SignInRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/picks': {
       id: '/picks'
       path: '/picks'
       fullPath: '/picks'
       preLoaderRoute: typeof PicksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/create-account': {
+      id: '/create-account'
+      path: '/create-account'
+      fullPath: '/create-account'
+      preLoaderRoute: typeof CreateAccountRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -85,28 +99,14 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/auth/sign-in': {
-      id: '/auth/sign-in'
-      path: '/auth/sign-in'
-      fullPath: '/auth/sign-in'
-      preLoaderRoute: typeof AuthSignInRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth/create-account': {
-      id: '/auth/create-account'
-      path: '/auth/create-account'
-      fullPath: '/auth/create-account'
-      preLoaderRoute: typeof AuthCreateAccountRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CreateAccountRoute: CreateAccountRoute,
   PicksRoute: PicksRoute,
-  AuthCreateAccountRoute: AuthCreateAccountRoute,
-  AuthSignInRoute: AuthSignInRoute,
+  SignInRoute: SignInRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

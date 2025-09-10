@@ -19,7 +19,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import z from 'zod';
 
-export const Route = createFileRoute('/auth/sign-in')({
+export const Route = createFileRoute('/sign-in')({
   component: RouteComponent,
   beforeLoad: async ({ context }) => {
     // If the user is not signed in, return
@@ -121,7 +121,7 @@ function RouteComponent() {
             <SignUpButton
               variant="link"
               className="w-full"
-              to="/auth/create-account">
+              to="/create-account">
               Create Account
             </SignUpButton>
           </CardFooter>
