@@ -4,5 +4,13 @@ import { createContext, useContext } from 'react';
 export const GameCardContext = createContext<GameData>(null!);
 
 export function useGameCardContext() {
-  return useContext(GameCardContext);
+  const context = useContext(GameCardContext);
+
+  if (!context) {
+    throw new Error(
+      'useGameCardContext must be used within a GameCardProvider',
+    );
+  }
+
+  return context;
 }

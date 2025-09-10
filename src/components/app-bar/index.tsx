@@ -1,13 +1,24 @@
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { supabase } from '@/supabase';
+import { useMutation } from '@tanstack/react-query';
 import { Link } from '@tanstack/react-router';
+import { toast } from 'sonner';
 
 type AppBarProps = {
   className?: string;
 };
 
 export function AppBar({ className }: AppBarProps) {
+  const { mutate } = useMutation({
+    mutationFn: () => supabase.auth.signOut(),
+    onError: error => {
+      toast.error('Failed to sign out', {
+        description: error.message,
+      });
+    },
+  });
+
   return (
     <header
       role="banner"
@@ -23,10 +34,7 @@ export function AppBar({ className }: AppBarProps) {
           className="font-semibold tracking-tight hover:opacity-80">
           pickem
         </Link>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => supabase.auth.signOut()}>
+        <Button variant="ghost" size="sm" onClick={() => mutate()}>
           Sign Out
         </Button>
       </div>
