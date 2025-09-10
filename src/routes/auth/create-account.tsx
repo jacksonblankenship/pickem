@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { env } from '@/lib/env';
 import { supabase } from '@/supabase';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Label } from '@radix-ui/react-label';
@@ -96,7 +97,7 @@ function RouteComponent() {
           email: values.email,
           password: values.password,
           options: {
-            emailRedirectTo: window.location.origin,
+            emailRedirectTo: env.VITE_APP_ORIGIN,
           },
         }),
       onError: error => {
@@ -116,7 +117,7 @@ function RouteComponent() {
         type: 'signup',
         email: values.email,
         options: {
-          emailRedirectTo: window.location.origin,
+          emailRedirectTo: env.VITE_APP_ORIGIN,
         },
       }),
     onError: error => {
