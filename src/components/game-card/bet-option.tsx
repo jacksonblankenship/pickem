@@ -17,7 +17,7 @@ const betOptionVariants = cva(
   'flex w-full items-center justify-between gap-2 rounded-lg border px-3 py-2',
   {
     variants: {
-      state: {
+      gameState: {
         base: 'border-gray-300 bg-white text-gray-800 hover:bg-gray-100 cursor-pointer transition-colors duration-200',
         disabled:
           'border-gray-200 bg-white text-gray-400 opacity-40 cursor-not-allowed',
@@ -27,7 +27,7 @@ const betOptionVariants = cva(
         lost: 'border border-red-400 bg-red-50 text-red-900 ring-2 ring-red-200 font-semibold',
       },
     },
-    defaultVariants: { state: 'base' },
+    defaultVariants: { gameState: 'base' },
   },
 );
 
@@ -56,7 +56,8 @@ export function BetOption(props: BetOptionProps) {
     date,
   } = useGameCardContext();
   const openDialog = useBetOptionConfirmationStore(s => s.openDialog);
-  const { favoritePicked, underdogPicked, totalPicked } = useWeekSlateContext();
+  const { favoriteGameId, underdogGameId, pointTotalGameId } =
+    useWeekSlateContext();
   const hasGameStarted = useHasGameStarted(date);
 
   const option =
@@ -64,35 +65,63 @@ export function BetOption(props: BetOptionProps) {
       ? options.spread[props.target]
       : options.total[props.target];
 
-  const state = useMemo<VariantProps<typeof betOptionVariants>['state']>(() => {
-    // If the option is not available for some reason, default to disabled
+  const gameState = useMemo<
+    VariantProps<typeof betOptionVariants>['gameState']
+  >(() => {
+    // Handle missing data - if the option data is not available, show as disabled
     if (option === null) return 'disabled';
 
-    // Always show the user's pick, regardless of game start
+    /*
+     * Show user's existing picks - if this option has already been picked by the user,
+     * show its current status. This takes priority over all other rules (even if the game has started)
+     */
     if (option.picked === true) {
       if (option.status === 'won') return 'won';
       if (option.status === 'lost') return 'lost';
-      return 'selected'; // covers 'pending'
+      return 'selected'; // covers 'pending' status
     }
 
-    // If not picked, fall back to availability rules
+    // Check if game has started - if the game has already started, disable all unpicked options
     if (hasGameStarted === true) return 'disabled';
 
+    // Enforce pick limits for spread bets - users can only pick ONE favorite and ONE underdog per week
     if (props.type === 'spread') {
-      if (option.line < 0 && favoritePicked) return 'disabled';
-      if (option.line > 0 && underdogPicked) return 'disabled';
+      const isFavorite = option.line < 0;
+
+      if (isFavorite) {
+        /*
+         * If this is a favorite option:
+         * - Disable if THIS game already has an underdog pick (can't pick both sides of same game)
+         * - Disable if ANY other game's favorite has been picked (only one favorite per week)
+         */
+        if (underdogGameId === id) return 'disabled';
+        if (favoriteGameId !== undefined) return 'disabled';
+      } else {
+        /*
+         * If this is an underdog option:
+         * - Disable if THIS game already has a favorite pick (can't pick both sides of same game)
+         * - Disable if ANY other game's underdog has been picked (only one underdog per week)
+         */
+        if (favoriteGameId === id) return 'disabled';
+        if (underdogGameId !== undefined) return 'disabled';
+      }
     }
 
-    if (props.type === 'total' && totalPicked === true) return 'disabled';
+    // Enforce pick limits for total bets - users can only pick ONE total (over/under) per week
+    if (props.type === 'total' && pointTotalGameId !== undefined) {
+      return 'disabled';
+    }
 
+    // Allow selection - if we've passed all checks, this option can be selected
     return 'base';
   }, [
-    option,
     props.type,
+    option,
     hasGameStarted,
-    favoritePicked,
-    underdogPicked,
-    totalPicked,
+    favoriteGameId,
+    underdogGameId,
+    pointTotalGameId,
+    id,
   ]);
 
   if (option === null) return <Skeleton className="h-8 w-full" />;
@@ -115,10 +144,14 @@ export function BetOption(props: BetOptionProps) {
 
   return (
     <button
-      className={cn(betOptionVariants({ state }), props.className)}
-      disabled={state !== 'base'}
+      className={cn(
+        betOptionVariants({ gameState: gameState }),
+        props.className,
+      )}
+      disabled={gameState !== 'base'}
       onClick={() =>
         openDialog({
+          date,
           awayTeamAbbr,
           awayTeamLogo,
           homeTeamAbbr,
@@ -127,7 +160,6 @@ export function BetOption(props: BetOptionProps) {
           target: props.target,
           line: option.line,
           odds: option.odds,
-          date,
           gameId: id,
           betOptionId: option.id,
         })

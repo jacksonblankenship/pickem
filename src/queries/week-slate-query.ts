@@ -16,21 +16,24 @@ async function fetchWeekSlateData(props: { year: number; week: number }) {
     .throwOnError();
 
   const gameIds = data.map(g => g.id);
-  const favoritePicked = data.some(g =>
+
+  const favoriteGameId = data.find(g =>
     g.bet_options.some(
       o => o.type === 'spread' && o.line < 0 && o.picks.length > 0,
     ),
-  );
-  const underdogPicked = data.some(g =>
+  )?.id;
+
+  const underdogGameId = data.find(g =>
     g.bet_options.some(
       o => o.type === 'spread' && o.line > 0 && o.picks.length > 0,
     ),
-  );
-  const totalPicked = data.some(g =>
-    g.bet_options.some(o => o.type === 'total' && o.picks.length > 0),
-  );
+  )?.id;
 
-  return { gameIds, favoritePicked, underdogPicked, totalPicked };
+  const pointTotalGameId = data.find(g =>
+    g.bet_options.some(o => o.type === 'total' && o.picks.length > 0),
+  )?.id;
+
+  return { gameIds, favoriteGameId, underdogGameId, pointTotalGameId };
 }
 
 export function useWeekSlateQuery(props: { year: number; week: number }) {
