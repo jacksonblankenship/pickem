@@ -142,7 +142,9 @@ export function BetOption(props: BetOptionProps) {
 
   const formattedLine =
     props.type === 'spread'
-      ? spreadFormatter.format(option.line)
+      ? option.line === 0
+        ? 'PK'
+        : spreadFormatter.format(option.line)
       : pointTotalFormatter.format(option.line);
 
   const formattedOdds = oddsFormatter.format(option.odds);
