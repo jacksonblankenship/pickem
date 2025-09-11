@@ -25,6 +25,7 @@ const betOptionVariants = cva(
           'border border-indigo-400 bg-indigo-50 text-indigo-900 ring-2 ring-indigo-200 font-semibold',
         won: 'border border-green-400 bg-green-50 text-green-900 ring-2 ring-green-200 font-semibold',
         lost: 'border border-red-400 bg-red-50 text-red-900 ring-2 ring-red-200 font-semibold',
+        push: 'border border-yellow-400 bg-yellow-50 text-yellow-900 ring-2 ring-yellow-200 font-semibold',
       },
     },
     defaultVariants: { gameState: 'base' },
@@ -78,6 +79,7 @@ export function BetOption(props: BetOptionProps) {
     if (option.picked === true) {
       if (option.status === 'won') return 'won';
       if (option.status === 'lost') return 'lost';
+      if (option.status === 'push') return 'push';
       return 'selected'; // covers 'pending' status
     }
 

@@ -114,21 +114,21 @@ export type Database = {
       };
       picks: {
         Row: {
-          bet_option_id: number | null;
+          bet_option_id: number;
           createdAt: string;
           id: number;
           status: Database['public']['Enums']['pick_status'];
           user_id: string;
         };
         Insert: {
-          bet_option_id?: number | null;
+          bet_option_id: number;
           createdAt?: string;
           id?: never;
           status?: Database['public']['Enums']['pick_status'];
           user_id?: string;
         };
         Update: {
-          bet_option_id?: number | null;
+          bet_option_id?: number;
           createdAt?: string;
           id?: never;
           status?: Database['public']['Enums']['pick_status'];
@@ -187,7 +187,7 @@ export type Database = {
         | 'completed'
         | 'postponed'
         | 'suspended';
-      pick_status: 'pending' | 'won' | 'lost';
+      pick_status: 'pending' | 'won' | 'lost' | 'push';
       system_status: 'scheduled' | 'open' | 'closed' | 'settled';
     };
     CompositeTypes: {
@@ -328,7 +328,7 @@ export const Constants = {
         'postponed',
         'suspended',
       ],
-      pick_status: ['pending', 'won', 'lost'],
+      pick_status: ['pending', 'won', 'lost', 'push'],
       system_status: ['scheduled', 'open', 'closed', 'settled'],
     },
   },
