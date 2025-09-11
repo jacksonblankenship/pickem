@@ -86,6 +86,9 @@ export function BetOption(props: BetOptionProps) {
 
     // Enforce pick limits for spread bets - users can only pick ONE favorite and ONE underdog per week
     if (props.type === 'spread') {
+      // Pickems are not allowed because a favorite and underdog can not be determined
+      if (option.line === 0) return 'disabled';
+
       const isFavorite = option.line < 0;
 
       if (isFavorite) {
@@ -137,7 +140,9 @@ export function BetOption(props: BetOptionProps) {
 
   const formattedLine =
     props.type === 'spread'
-      ? spreadFormatter.format(option.line)
+      ? option.line === 0
+        ? 'PK'
+        : spreadFormatter.format(option.line)
       : pointTotalFormatter.format(option.line);
 
   const formattedOdds = oddsFormatter.format(option.odds);
