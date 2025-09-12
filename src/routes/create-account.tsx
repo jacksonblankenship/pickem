@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { IS_REGISTRATION_OPEN } from '@/lib/constants';
 import { getAppUrl } from '@/lib/utils';
 import { supabase } from '@/supabase';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -25,7 +26,13 @@ export const Route = createFileRoute('/create-account')({
   component: RouteComponent,
   beforeLoad: async ({ context }) => {
     // If the user is not signed in, stay on the page
-    if (context.session === null) return;
+    if (context.session === null) {
+      if (IS_REGISTRATION_OPEN) return;
+
+      throw redirect({
+        to: '/sign-in',
+      });
+    }
 
     // If the user is signed in, redirect to the home page
     throw redirect({
@@ -93,6 +100,9 @@ function RouteComponent() {
   const { mutate: createAccount, isPending: isCreateAccountPending } =
     useMutation({
       mutationFn: async (values: z.infer<typeof formSchema>) => {
+        if (IS_REGISTRATION_OPEN === false)
+          throw new Error('Registration is closed');
+
         const { error } = await supabase.auth.signUp({
           email: values.email,
           password: values.password,
