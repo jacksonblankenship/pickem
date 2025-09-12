@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { IS_REGISTRATION_OPEN } from '@/lib/constants';
 import { supabase } from '@/supabase';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
@@ -121,7 +122,8 @@ function RouteComponent() {
             <SignUpButton
               variant="link"
               className="w-full"
-              to="/create-account">
+              to="/create-account"
+              disabled={IS_REGISTRATION_OPEN === false}>
               Create Account
             </SignUpButton>
           </CardFooter>
