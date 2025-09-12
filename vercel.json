@@ -1,11 +1,7 @@
 {
   "rewrites": [
     {
-<<<<<<< Updated upstream
-      "source": "^/(?!.*\\.).*$",
-=======
       "source": "/:path((?!.*\\..*).*)",
->>>>>>> Stashed changes
       "destination": "/index.html"
     }
   ],
