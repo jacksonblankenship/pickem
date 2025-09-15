@@ -15,25 +15,25 @@ async function fetchWeekSlateData(props: { year: number; week: number }) {
     .order('date', { ascending: true })
     .throwOnError();
 
-  const gameIds = data
-    .sort((a: { date: string | null }, b: { date: string | null }) => {
-      const now = new Date();
+  const now = new Date().getTime();
 
-      const dateA = a.date !== null ? new Date(a.date) : null;
-      const dateB = b.date !== null ? new Date(b.date) : null;
+  const gameIds = data
+    .sort((a, b) => {
+      const dateA = a.date !== null ? new Date(a.date).getTime() : null;
+      const dateB = b.date !== null ? new Date(b.date).getTime() : null;
 
       if (dateA === null && dateB === null) return 0;
       if (dateA === null) return 1;
       if (dateB === null) return -1;
 
-      const isFutureA = dateA.getTime() >= now.getTime();
-      const isFutureB = dateB.getTime() >= now.getTime();
+      const isFutureA = dateA >= now;
+      const isFutureB = dateB >= now;
 
       if (isFutureA !== isFutureB) {
         return isFutureA ? -1 : 1;
       }
 
-      return dateA.getTime() - dateB.getTime();
+      return dateA - dateB;
     })
     .map(g => g.id);
 
