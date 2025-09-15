@@ -7,11 +7,6 @@
       "matchManagers": ["npm"],
       "matchUpdateTypes": ["minor", "patch"],
       "automerge": true
-    },
-    {
-      "matchDepTypes": ["engines"],
-      "matchPackageNames": ["node"],
-      "allowedVersions": "22.x"
     }
   ],
   "automergeType": "branch"
