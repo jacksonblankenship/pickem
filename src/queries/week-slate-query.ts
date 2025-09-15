@@ -22,28 +22,26 @@ async function fetchWeekSlateData(props: { year: number; week: number }) {
       const dateA = a.date !== null ? new Date(a.date) : null;
       const dateB = b.date !== null ? new Date(b.date) : null;
 
-      const isFutureA = dateA === null || dateA.getTime() >= now.getTime();
-      const isFutureB = dateB === null || dateB.getTime() >= now.getTime();
+      // Always sort real dates before null dates (TBD)
+      if (dateA === null && dateB !== null) {
+        return 1; // TBD after real date
+      }
+      if (dateA !== null && dateB === null) {
+        return -1; // real date before TBD
+      }
+      if (dateA === null && dateB === null) {
+        return 0; // both TBD
+      }
 
-      // group: future before past
+      // Both dates are real, group: future before past
+      const isFutureA = dateA.getTime() >= now.getTime();
+      const isFutureB = dateB.getTime() >= now.getTime();
       if (isFutureA !== isFutureB) {
         return isFutureA ? -1 : 1;
       }
 
-      // both in same group
-      if (dateA !== null && dateB !== null) {
-        return dateA.getTime() - dateB.getTime();
-      }
-
-      if (dateA !== null && dateB === null) {
-        return -1; // real date before TBD
-      }
-
-      if (dateA === null && dateB !== null) {
-        return 1; // TBD after real date
-      }
-
-      return 0; // both TBD
+      // both in same group, sort by date
+      return dateA.getTime() - dateB.getTime();
     })
     .map(g => g.id);
 
