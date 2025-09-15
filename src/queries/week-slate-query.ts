@@ -18,22 +18,32 @@ async function fetchWeekSlateData(props: { year: number; week: number }) {
   const gameIds = data
     .sort((a: { date: string | null }, b: { date: string | null }) => {
       const now = new Date();
-      const dateA = a.date ? new Date(a.date) : null;
-      const dateB = b.date ? new Date(b.date) : null;
 
-      const isFutureA = !dateA || dateA >= now;
-      const isFutureB = !dateB || dateB >= now;
+      const dateA = a.date !== null ? new Date(a.date) : null;
+      const dateB = b.date !== null ? new Date(b.date) : null;
 
-      // Group: future before past
+      const isFutureA = dateA === null || dateA.getTime() >= now.getTime();
+      const isFutureB = dateB === null || dateB.getTime() >= now.getTime();
+
+      // group: future before past
       if (isFutureA !== isFutureB) {
         return isFutureA ? -1 : 1;
       }
 
-      // Inside the same group:
-      if (dateA && dateB) return dateA.getTime() - dateB.getTime();
-      if (!dateA && dateB) return 1; // TBD goes after real dates
-      if (dateA && !dateB) return -1; // real dates before TBD
-      return 0;
+      // both in same group
+      if (dateA !== null && dateB !== null) {
+        return dateA.getTime() - dateB.getTime();
+      }
+
+      if (dateA !== null && dateB === null) {
+        return -1; // real date before TBD
+      }
+
+      if (dateA === null && dateB !== null) {
+        return 1; // TBD after real date
+      }
+
+      return 0; // both TBD
     })
     .map(g => g.id);
 
