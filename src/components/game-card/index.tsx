@@ -10,11 +10,11 @@ import { GameHeader } from './game-header';
 import { Market } from './market';
 import { Teams } from './teams';
 
-type GameCardProps = PropsWithClassName<{
+type GameCardInnerProps = {
   gameId: number;
-}>;
+};
 
-function GameCardInner(props: GameCardProps) {
+function GameCardInner(props: GameCardInnerProps) {
   const gameQuery = useGameQuery(props.gameId);
 
   if (gameQuery.isLoading || gameQuery.isError || gameQuery.data === undefined)
@@ -22,11 +22,7 @@ function GameCardInner(props: GameCardProps) {
 
   return (
     <GameCardProvider data={gameQuery.data}>
-      <Card
-        className={cn(
-          'flex h-full w-full flex-col justify-center',
-          props.className,
-        )}>
+      <Card className="flex h-full w-full flex-col justify-center">
         <CardContent className="space-y-2">
           <GameHeader />
           <Teams />
@@ -48,7 +44,7 @@ function GameCardSkeleton() {
   return <Skeleton className="h-full w-full" />;
 }
 
-export function GameCard(props: GameCardProps) {
+export function GameCard(props: PropsWithClassName<GameCardInnerProps>) {
   const { ref, inView } = useInView({
     threshold: 0.1,
     triggerOnce: true,
@@ -56,7 +52,7 @@ export function GameCard(props: GameCardProps) {
   });
 
   return (
-    <div className="h-60 w-full" ref={ref}>
+    <div className={cn('h-60 w-full', props.className)} ref={ref}>
       {inView ? <GameCardInner gameId={props.gameId} /> : <GameCardSkeleton />}
     </div>
   );
