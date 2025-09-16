@@ -2,6 +2,7 @@ import { PropsWithClassName } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { GameCardProvider } from '@/providers/game-card-provider';
 import { useGameQuery } from '@/queries/game-query';
+import { useInView } from 'react-intersection-observer';
 import { Card, CardContent } from '../ui/card';
 import { Skeleton } from '../ui/skeleton';
 import { BetOption } from './bet-option';
@@ -13,7 +14,7 @@ type GameCardProps = PropsWithClassName<{
   gameId: number;
 }>;
 
-export function GameCard(props: GameCardProps) {
+function GameCardInner(props: GameCardProps) {
   const gameQuery = useGameQuery(props.gameId);
 
   if (gameQuery.isLoading || gameQuery.isError || gameQuery.data === undefined)
@@ -22,7 +23,10 @@ export function GameCard(props: GameCardProps) {
   return (
     <GameCardProvider data={gameQuery.data}>
       <Card
-        className={cn('flex h-60 flex-col justify-center', props.className)}>
+        className={cn(
+          'flex h-full w-full flex-col justify-center',
+          props.className,
+        )}>
         <CardContent className="space-y-2">
           <GameHeader />
           <Teams />
@@ -37,5 +41,23 @@ export function GameCard(props: GameCardProps) {
         </CardContent>
       </Card>
     </GameCardProvider>
+  );
+}
+
+function GameCardSkeleton() {
+  return <Skeleton className="h-full w-full" />;
+}
+
+export function GameCard(props: GameCardProps) {
+  const { ref, inView } = useInView({
+    threshold: 0.1,
+    triggerOnce: true,
+    rootMargin: '50px',
+  });
+
+  return (
+    <div className="h-60 w-full" ref={ref}>
+      {inView ? <GameCardInner gameId={props.gameId} /> : <GameCardSkeleton />}
+    </div>
   );
 }
