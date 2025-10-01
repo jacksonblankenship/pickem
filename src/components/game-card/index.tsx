@@ -22,11 +22,11 @@ function GameCardInner(props: GameCardInnerProps) {
 
   return (
     <GameCardProvider data={gameQuery.data}>
-      <Card className="flex h-full w-full flex-col justify-center">
-        <CardContent className="space-y-2">
-          <GameHeader />
+      <Card className="flex h-full w-full flex-col justify-center py-0">
+        <CardContent>
+          <GameHeader className="mb-1" />
           <Teams />
-          <Market type="spread">
+          <Market type="spread" className="my-3">
             <BetOption type="spread" target="away" />
             <BetOption type="spread" target="home" />
           </Market>

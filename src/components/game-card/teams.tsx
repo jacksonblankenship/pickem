@@ -24,12 +24,16 @@ export function Teams(props: TeamsProps) {
         props.className,
       )}>
       <div className="flex min-w-0 flex-row items-center gap-2">
-        <Avatar className="h-8 w-8 ring-1 ring-slate-200">
-          <AvatarImage src={awayTeamLogo} alt={`${awayTeamAbbr} logo`} />
-          <AvatarFallback>{awayTeamAbbr}</AvatarFallback>
+        <Avatar className="size-8 rounded-lg bg-white ring-1 ring-slate-200 dark:ring-slate-600">
+          <AvatarImage
+            src={awayTeamLogo}
+            alt={`${awayTeamAbbr} logo`}
+            className="rounded-lg p-1"
+          />
+          <AvatarFallback className="rounded-lg">{awayTeamAbbr}</AvatarFallback>
         </Avatar>
         <div className="min-w-8">
-          <div className="text-sm font-semibold tracking-wide text-slate-800">
+          <div className="text-sm font-semibold tracking-wide">
             {awayTeamAbbr}
           </div>
         </div>
@@ -56,12 +60,16 @@ export function Teams(props: TeamsProps) {
         </span>
       )}
       <div className="flex min-w-0 flex-row-reverse items-center gap-2 text-right">
-        <Avatar className="h-8 w-8 ring-1 ring-slate-200">
-          <AvatarImage src={homeTeamLogo} alt={`${homeTeamAbbr} logo`} />
-          <AvatarFallback>{homeTeamAbbr}</AvatarFallback>
+        <Avatar className="size-8 rounded-lg bg-white ring-1 ring-slate-200 dark:ring-slate-600">
+          <AvatarImage
+            src={homeTeamLogo}
+            alt={`${homeTeamAbbr} logo`}
+            className="rounded-lg p-1"
+          />
+          <AvatarFallback className="rounded-lg">{homeTeamAbbr}</AvatarFallback>
         </Avatar>
         <div className="min-w-8">
-          <div className="text-sm font-semibold tracking-wide text-slate-800">
+          <div className="text-sm font-semibold tracking-wide">
             {homeTeamAbbr}
           </div>
         </div>
