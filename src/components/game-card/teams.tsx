@@ -6,8 +6,13 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 type TeamsProps = PropsWithClassName;
 
 export function Teams(props: TeamsProps) {
-  const { awayTeamAbbr, awayTeamLogo, homeTeamAbbr, homeTeamLogo } =
-    useGameCardContext();
+  const {
+    awayTeamAbbr,
+    awayTeamLogo,
+    homeTeamAbbr,
+    homeTeamLogo,
+    neutralSite,
+  } = useGameCardContext();
 
   return (
     <div className={cn('grid grid-cols-3 items-center gap-3', props.className)}>
@@ -22,8 +27,8 @@ export function Teams(props: TeamsProps) {
           </div>
         </div>
       </div>
-      <span className="text-center text-xs font-medium text-slate-400 select-none">
-        {'@'}
+      <span className="text-muted-foreground text-center text-xs font-medium select-none">
+        {neutralSite ? 'vs.' : '@'}
       </span>
       <div className="flex min-w-0 flex-row-reverse items-center gap-2 text-right">
         <Avatar className="h-8 w-8 ring-1 ring-slate-200">
