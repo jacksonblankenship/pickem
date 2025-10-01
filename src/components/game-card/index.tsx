@@ -18,7 +18,7 @@ function GameCardInner(props: GameCardInnerProps) {
   const gameQuery = useGameQuery(props.gameId);
 
   if (gameQuery.isLoading || gameQuery.isError || gameQuery.data === undefined)
-    return <Skeleton className="h-60 w-full" />;
+    return <GameCardSkeleton />;
 
   return (
     <GameCardProvider data={gameQuery.data}>
