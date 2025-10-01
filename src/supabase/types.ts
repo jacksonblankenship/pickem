@@ -63,7 +63,7 @@ export type Database = {
           home_team_id: number;
           home_team_score: number;
           id: number;
-          system_status: Database['public']['Enums']['system_status'];
+          neutral_site: boolean;
           week: number;
           year: number;
         };
@@ -77,7 +77,7 @@ export type Database = {
           home_team_id: number;
           home_team_score?: number;
           id?: never;
-          system_status?: Database['public']['Enums']['system_status'];
+          neutral_site?: boolean;
           week: number;
           year: number;
         };
@@ -91,7 +91,7 @@ export type Database = {
           home_team_id?: number;
           home_team_score?: number;
           id?: never;
-          system_status?: Database['public']['Enums']['system_status'];
+          neutral_site?: boolean;
           week?: number;
           year?: number;
         };
@@ -188,7 +188,6 @@ export type Database = {
         | 'postponed'
         | 'suspended';
       pick_status: 'pending' | 'won' | 'lost' | 'push';
-      system_status: 'scheduled' | 'open' | 'closed' | 'settled';
     };
     CompositeTypes: {
       [_ in never]: never;
@@ -329,7 +328,6 @@ export const Constants = {
         'suspended',
       ],
       pick_status: ['pending', 'won', 'lost', 'push'],
-      system_status: ['scheduled', 'open', 'closed', 'settled'],
     },
   },
 } as const;
