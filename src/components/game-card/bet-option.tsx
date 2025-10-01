@@ -14,7 +14,7 @@ import { useBetOptionConfirmationStore } from '../../stores/bet-option-confirmat
 import { Skeleton } from '../ui/skeleton';
 
 const betOptionVariants = cva(
-  'flex w-full items-center justify-between gap-2 rounded-lg border px-3 py-2',
+  'flex w-full items-center justify-between gap-2 rounded-lg border px-3 py-2 transition-all duration-200 active:scale-[0.98] active:transition-transform active:duration-75 disabled:pointer-events-none',
   {
     variants: {
       gameState: {
