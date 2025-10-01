@@ -18,9 +18,9 @@ const betOptionVariants = cva(
   {
     variants: {
       gameState: {
-        base: 'border-gray-300 hover:bg-gray-100 cursor-pointer transition-colors duration-200',
+        base: 'border-gray-300 hover:bg-blue-50 cursor-pointer transition-colors duration-200 dark:border-gray-600 dark:hover:bg-blue-950/20',
         disabled:
-          'border-gray-200 text-muted-foreground opacity-40 cursor-not-allowed',
+          'border-gray-200 text-muted-foreground opacity-40 cursor-not-allowed dark:border-gray-700 dark:text-gray-500 dark:opacity-60',
         selected:
           'border border-blue-500 bg-blue-50 text-blue-900 dark:bg-blue-950 dark:text-blue-100 ring-2 ring-blue-200 dark:ring-blue-800 font-semibold',
         won: 'border border-emerald-500 bg-emerald-50 text-emerald-900 dark:bg-emerald-950 dark:text-emerald-100 ring-2 ring-emerald-200 dark:ring-emerald-800 font-semibold',
