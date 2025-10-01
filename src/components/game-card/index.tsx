@@ -46,7 +46,7 @@ function GameCardSkeleton() {
 
 export function GameCard(props: PropsWithClassName<GameCardInnerProps>) {
   const { ref, inView } = useInView({
-    threshold: 0.1,
+    threshold: 0.25,
     triggerOnce: true,
     rootMargin: '50px',
   });
