@@ -13,8 +13,8 @@ export function ThemeProvider({
   storageKey = 'pickem-theme',
   ...props
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(
-    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme,
+  const [themeValue, setThemeValue] = useState<Theme>(
+    () => (localStorage.getItem(storageKey) as Theme) ?? defaultTheme,
   );
 
   useEffect(() => {
@@ -22,29 +22,46 @@ export function ThemeProvider({
 
     root.classList.remove('light', 'dark');
 
-    if (theme === 'system') {
-      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
-        .matches
-        ? 'dark'
-        : 'light';
+    if (themeValue !== 'system') return root.classList.add(themeValue);
 
+    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
+      .matches
+      ? 'dark'
+      : 'light';
+
+    root.classList.add(systemTheme);
+  }, [themeValue]);
+
+  useEffect(() => {
+    if (themeValue !== 'system') return;
+
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+    const handleChange = () => {
+      const root = window.document.documentElement;
+      root.classList.remove('light', 'dark');
+
+      const systemTheme = mediaQuery.matches ? 'dark' : 'light';
       root.classList.add(systemTheme);
-      return;
-    }
+    };
 
-    root.classList.add(theme);
-  }, [theme]);
+    mediaQuery.addEventListener('change', handleChange);
 
-  const value = {
-    theme,
-    setTheme: (theme: Theme) => {
-      localStorage.setItem(storageKey, theme);
-      setTheme(theme);
-    },
-  };
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, [themeValue]);
+
+  function setTheme(theme: Theme) {
+    localStorage.setItem(storageKey, theme);
+    setThemeValue(theme);
+  }
 
   return (
-    <ThemeProviderContext.Provider {...props} value={value}>
+    <ThemeProviderContext.Provider
+      {...props}
+      value={{
+        theme: themeValue,
+        setTheme,
+      }}>
       {children}
     </ThemeProviderContext.Provider>
   );
