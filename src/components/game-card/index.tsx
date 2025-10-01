@@ -22,11 +22,11 @@ function GameCardInner(props: GameCardInnerProps) {
 
   return (
     <GameCardProvider data={gameQuery.data}>
-      <Card className="flex h-full w-full flex-col justify-center">
-        <CardContent className="space-y-2">
-          <GameHeader />
+      <Card className="flex h-full w-full flex-col justify-center py-0 transition-shadow duration-200 hover:shadow-md">
+        <CardContent>
+          <GameHeader className="mb-1" />
           <Teams />
-          <Market type="spread">
+          <Market type="spread" className="my-3">
             <BetOption type="spread" target="away" />
             <BetOption type="spread" target="home" />
           </Market>
@@ -52,7 +52,12 @@ export function GameCard(props: PropsWithClassName<GameCardInnerProps>) {
   });
 
   return (
-    <div className={cn('h-60 w-full', props.className)} ref={ref}>
+    <div
+      className={cn(
+        'h-60 w-full transition-all duration-500 ease-out',
+        inView ? 'translate-y-0 opacity-100' : 'translate-y-16 opacity-0',
+      )}
+      ref={ref}>
       {inView ? <GameCardInner gameId={props.gameId} /> : <GameCardSkeleton />}
     </div>
   );

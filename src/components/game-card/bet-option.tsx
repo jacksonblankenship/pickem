@@ -14,18 +14,18 @@ import { useBetOptionConfirmationStore } from '../../stores/bet-option-confirmat
 import { Skeleton } from '../ui/skeleton';
 
 const betOptionVariants = cva(
-  'flex w-full items-center justify-between gap-2 rounded-lg border px-3 py-2',
+  'flex w-full items-center justify-between gap-2 rounded-lg border px-3 py-2 transition-all duration-200 active:scale-[0.98] active:transition-transform active:duration-75 disabled:pointer-events-none',
   {
     variants: {
       gameState: {
-        base: 'border-gray-300 bg-white text-gray-800 hover:bg-gray-100 cursor-pointer transition-colors duration-200',
+        base: 'border-gray-300 hover:bg-blue-50 cursor-pointer transition-colors duration-200 dark:border-gray-600 dark:hover:bg-blue-950/20',
         disabled:
-          'border-gray-200 bg-white text-gray-400 opacity-40 cursor-not-allowed',
+          'border-gray-200 text-muted-foreground opacity-40 cursor-not-allowed dark:border-gray-700 dark:text-gray-500 dark:opacity-60',
         selected:
-          'border border-indigo-400 bg-indigo-50 text-indigo-900 ring-2 ring-indigo-200 font-semibold',
-        won: 'border border-green-400 bg-green-50 text-green-900 ring-2 ring-green-200 font-semibold',
-        lost: 'border border-red-400 bg-red-50 text-red-900 ring-2 ring-red-200 font-semibold',
-        push: 'border border-yellow-400 bg-yellow-50 text-yellow-900 ring-2 ring-yellow-200 font-semibold',
+          'border border-blue-500 bg-blue-50 text-blue-900 dark:bg-blue-950 dark:text-blue-100 ring-2 ring-blue-200 dark:ring-blue-800 font-semibold',
+        won: 'border border-emerald-500 bg-emerald-50 text-emerald-900 dark:bg-emerald-950 dark:text-emerald-100 ring-2 ring-emerald-200 dark:ring-emerald-800 font-semibold',
+        lost: 'border border-rose-500 bg-rose-50 text-rose-900 dark:bg-rose-950 dark:text-rose-100 ring-2 ring-rose-200 dark:ring-rose-800 font-semibold',
+        push: 'border border-amber-500 bg-amber-50 text-amber-900 dark:bg-amber-950 dark:text-amber-100 ring-2 ring-amber-200 dark:ring-amber-800 font-semibold',
       },
     },
     defaultVariants: { gameState: 'base' },

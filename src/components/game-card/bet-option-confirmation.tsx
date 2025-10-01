@@ -99,14 +99,14 @@ export function BetOptionConfirmation() {
           </Button>
           <Button
             type="button"
-            className="min-w-[100px] bg-indigo-700"
+            className="min-w-[100px] bg-blue-600 text-white hover:bg-blue-700"
             onClick={() => mutate()}
             disabled={isLoading}>
             {isLoading ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
+              <Loader2 className="h-[1.2rem] w-[1.2rem] animate-spin" />
             ) : (
               <>
-                <Lock />
+                <Lock className="h-[1.2rem] w-[1.2rem]" />
                 Lock
               </>
             )}

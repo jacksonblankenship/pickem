@@ -19,13 +19,11 @@ export function GameHeader(props: GameHeaderProps) {
           : formatInTimeZone(
               date,
               Intl.DateTimeFormat().resolvedOptions().timeZone,
-              "EEE '•' h:mm a",
+              hasGameStarted ? "MMM d '•' h:mm a" : "EEE '•' h:mm a",
             )}
       </span>
       {date !== null && hasGameStarted && (
-        <span className="bg-muted text-muted-foreground flex items-center gap-1 rounded-sm px-2 py-1 text-xs">
-          Picks Closed
-        </span>
+        <span className="text-muted-foreground text-xs">Picks Closed</span>
       )}
     </div>
   );
