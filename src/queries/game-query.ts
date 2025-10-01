@@ -14,6 +14,10 @@ async function fetchGameData(gameId: number) {
       .select(
         `id,
         date,
+        neutral_site,
+        game_status,
+        home_team_score,
+        away_team_score,
         away_team:teams!games_away_team_id_teams_id_fk(abbr),
         home_team:teams!games_home_team_id_teams_id_fk(abbr),
         bet_options(id, type, target, line, odds, picks(id, status))`,
@@ -47,6 +51,10 @@ async function fetchGameData(gameId: number) {
 
     return {
       id: data.id,
+      neutralSite: data.neutral_site,
+      gameStatus: data.game_status,
+      awayTeamScore: data.away_team_score,
+      homeTeamScore: data.home_team_score,
       date: data.date !== null ? new Date(data.date) : null,
       awayTeamAbbr: data.away_team.abbr,
       awayTeamLogo: getTeamLogo(data.away_team.abbr),

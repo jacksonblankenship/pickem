@@ -13,7 +13,7 @@ export function GameHeader(props: GameHeaderProps) {
   return (
     <div
       className={cn('flex h-6 items-center justify-between', props.className)}>
-      <span className="flex items-center gap-1 text-xs text-slate-600">
+      <span className="text-muted-foreground flex items-center gap-1 text-xs">
         {date === null
           ? 'TBD'
           : formatInTimeZone(
