@@ -38,9 +38,8 @@ export function RouterProvider() {
   useEffect(() => {
     // don't bother invalidating the router if the session has not changed
     if (
-      (session === null && previousSession.current === null) ||
-      (previousSession.current?.access_token === session?.access_token &&
-        previousSession.current?.refresh_token === session?.refresh_token)
+      previousSession.current?.access_token === session?.access_token &&
+      previousSession.current?.refresh_token === session?.refresh_token
     )
       return;
 
