@@ -22,7 +22,7 @@ function GameCardInner(props: GameCardInnerProps) {
 
   return (
     <GameCardProvider data={gameQuery.data}>
-      <Card className="flex h-full w-full flex-col justify-center py-0 transition-shadow duration-200 hover:shadow-md">
+      <Card className="flex h-full w-full flex-col justify-center py-0 transition-shadow duration-400 hover:shadow-md">
         <CardContent>
           <GameHeader className="mb-1" />
           <Teams />
@@ -45,20 +45,35 @@ function GameCardSkeleton() {
 }
 
 export function GameCard(props: PropsWithClassName<GameCardInnerProps>) {
-  const { ref, inView } = useInView({
-    threshold: 0.1,
+  const { ref: dataRef, inView: shouldLoadData } = useInView({
     triggerOnce: true,
-    rootMargin: '50px',
+    rootMargin: '240px',
   });
+
+  const { ref: animationRef, inView: shouldAnimate } = useInView({
+    triggerOnce: true,
+    rootMargin: '60px',
+  });
+
+  const ref = (node: HTMLDivElement | null) => {
+    dataRef(node);
+    animationRef(node);
+  };
 
   return (
     <div
       className={cn(
-        'h-60 w-full transition-all duration-500 ease-out',
-        inView ? 'translate-y-0 opacity-100' : 'translate-y-16 opacity-0',
+        'h-60 w-full transition-all duration-700 ease-out',
+        shouldAnimate
+          ? 'translate-y-0 opacity-100'
+          : 'translate-y-16 opacity-0',
       )}
       ref={ref}>
-      {inView ? <GameCardInner gameId={props.gameId} /> : <GameCardSkeleton />}
+      {shouldLoadData ? (
+        <GameCardInner gameId={props.gameId} />
+      ) : (
+        <GameCardSkeleton />
+      )}
     </div>
   );
 }
