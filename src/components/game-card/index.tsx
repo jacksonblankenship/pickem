@@ -47,12 +47,12 @@ function GameCardSkeleton() {
 export function GameCard(props: PropsWithClassName<GameCardInnerProps>) {
   const { ref: dataRef, inView: shouldLoadData } = useInView({
     triggerOnce: true,
-    rootMargin: '240px',
+    rootMargin: '720px', // roughly 3 game cards
   });
 
   const { ref: animationRef, inView: shouldAnimate } = useInView({
     triggerOnce: true,
-    rootMargin: '60px',
+    rootMargin: '60px', // roughly 25% of a game card
   });
 
   const ref = (node: HTMLDivElement | null) => {
