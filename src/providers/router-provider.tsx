@@ -5,7 +5,7 @@ import {
   createRouter,
   RouterProvider as TanStackRouterProvider,
 } from '@tanstack/react-router';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 export type RouterContext = {
   session: Session | null;
@@ -33,8 +33,19 @@ const router = createRouter({
 export function RouterProvider() {
   const { session } = useSessionContext();
 
+  const previousSession = useRef<Session | null>(null);
+
   useEffect(() => {
-    // Invalidate the router to re-run loaders and beforeLoad guards when the session changes
+    // don't bother invalidating the router if the session has not changed
+    if (
+      previousSession.current?.access_token === session?.access_token &&
+      previousSession.current?.refresh_token === session?.refresh_token
+    )
+      return;
+
+    previousSession.current = session;
+
+    // invalidate the router to re-run loaders and beforeLoad guards when the session changes
     router.invalidate();
   }, [session]);
 
