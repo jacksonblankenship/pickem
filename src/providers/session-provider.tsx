@@ -1,19 +1,39 @@
 import { SessionContext } from '@/context/session-context';
+import { AUTH_TOKEN_STORAGE_KEY } from '@/lib/constants';
 import { supabase } from '@/supabase';
 import { Session } from '@supabase/supabase-js';
 import { useEffect, useState } from 'react';
+import z from 'zod';
 
 export function SessionProvider({ children }: { children: React.ReactNode }) {
-  const [session, setSession] = useState<Session | null>(null);
+  const [session, setSession] = useState<Session | null>(() => {
+    try {
+      const storageItem = localStorage.getItem(AUTH_TOKEN_STORAGE_KEY);
+      if (storageItem === null) return null;
+
+      const unsafeJson = JSON.parse(storageItem);
+      const session = z
+        .object({
+          expires_at: z.int().positive(),
+        })
+        .loose()
+        .safeParse(unsafeJson);
+      if (session.success === false) return null;
+
+      const { expires_at } = session.data;
+      if (expires_at * 1000 < Date.now()) return null;
+
+      // unfortunately, casting seems to make the most sense here (gross)
+      return session.data as unknown as Session;
+    } catch {
+      return null;
+    }
+  });
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session: newSession } }) => {
-      setSession(newSession);
-    });
-
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, newSession) => {
+    } = supabase.auth.onAuthStateChange((_, newSession) => {
       setSession(newSession);
     });
 

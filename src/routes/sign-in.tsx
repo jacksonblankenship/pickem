@@ -30,9 +30,7 @@ export const Route = createFileRoute('/sign-in')({
   ),
   beforeLoad: async ({ context, search }) => {
     // If the user is not signed in, return
-    if (context.session === null) {
-      return;
-    }
+    if (context.session === null) return;
 
     // If the user is signed in, redirect to the home page
     throw redirect({
