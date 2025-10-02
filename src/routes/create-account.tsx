@@ -16,6 +16,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Label } from '@radix-ui/react-label';
 import { useMutation } from '@tanstack/react-query';
 import { createFileRoute, createLink, redirect } from '@tanstack/react-router';
+import { zodValidator } from '@tanstack/zod-adapter';
 import { Loader2 } from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -24,11 +25,18 @@ import z from 'zod';
 
 export const Route = createFileRoute('/create-account')({
   component: RouteComponent,
-  beforeLoad: async ({ context }) => {
+  validateSearch: zodValidator(
+    z.object({
+      redirect: z.url().optional(),
+    }),
+  ),
+  beforeLoad: async ({ context, search }) => {
     // If the user is not signed in, stay on the page
     if (context.session === null) {
+      // If registration is open, stay on the page
       if (IS_REGISTRATION_OPEN) return;
 
+      // If registration is closed, redirect to sign-in
       throw redirect({
         to: '/sign-in',
       });
@@ -36,7 +44,7 @@ export const Route = createFileRoute('/create-account')({
 
     // If the user is signed in, redirect to the home page
     throw redirect({
-      to: '/',
+      to: search.redirect ?? '/',
     });
   },
   staticData: {

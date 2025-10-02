@@ -7,10 +7,12 @@ export const Route = createFileRoute('/')({
     if (context.session === null) {
       throw redirect({
         to: '/sign-in',
+        search: {
+          redirect: location.href,
+        },
       });
     }
-  },
-  loader: async () => {
+
     /**
      * Determine the latest year and week from the games table that has bet options available.
      */
@@ -27,7 +29,7 @@ export const Route = createFileRoute('/')({
 
     const { year, week } = data;
 
-    return redirect({ to: '/picks', search: { groupId: 1, year, week } });
+    throw redirect({ to: '/picks', search: { groupId: 1, year, week } });
   },
 });
 

@@ -11,6 +11,9 @@ export const Route = createFileRoute('/picks')({
     if (context.session === null) {
       throw redirect({
         to: '/sign-in',
+        search: {
+          redirect: location.href,
+        },
       });
     }
   },
