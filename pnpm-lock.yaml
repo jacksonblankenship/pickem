@@ -48,7 +48,7 @@ importers:
         specifier: 1.132.7
         version: 1.132.7(@tanstack/react-router@1.132.7(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(zod@4.1.8)
       '@vercel/analytics':
-        specifier: ^1.5.0
+        specifier: 1.5.0
         version: 1.5.0(react@19.2.0)
       class-variance-authority:
         specifier: 0.7.1
