@@ -8,6 +8,7 @@ import {
   useMatches,
 } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
+import { Analytics } from '@vercel/analytics/react';
 
 export const Route = createRootRouteWithContext<RouterContext>()({
   component: RootComponent,
@@ -28,6 +29,7 @@ function RootComponent() {
         </main>
       </div>
       <Toaster />
+      <Analytics />
       {import.meta.env.DEV && <TanStackRouterDevtools />}
       {import.meta.env.DEV && <ReactQueryDevtools initialIsOpen={false} />}
     </>
