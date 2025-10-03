@@ -1,10 +1,7 @@
 import { SupabaseClient } from '@supabase/supabase-js';
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
-import { QueryClientProvider } from './providers/query-client-provider';
-import { RouterProvider } from './providers/router-provider';
-import { SessionProvider } from './providers/session-provider';
-import { ThemeProvider } from './providers/theme-provider';
+import { AppProvider } from './providers/app-provider';
 import { Database } from './supabase/types';
 
 import './index.css';
@@ -18,13 +15,7 @@ if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <StrictMode>
-      <ThemeProvider defaultTheme="dark" storageKey="pickem-theme">
-        <SessionProvider>
-          <QueryClientProvider>
-            <RouterProvider />
-          </QueryClientProvider>
-        </SessionProvider>
-      </ThemeProvider>
+      <AppProvider />
     </StrictMode>,
   );
 }
