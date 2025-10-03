@@ -22,7 +22,7 @@ function GameCardInner(props: GameCardInnerProps) {
 
   return (
     <GameCardProvider data={gameQuery.data}>
-      <Card className="flex h-full w-full flex-col justify-center py-0 transition-shadow duration-400 hover:shadow-md">
+      <Card className="flex h-full w-full flex-col justify-center py-0 transition-shadow duration-400 select-none hover:shadow-md">
         <CardContent>
           <GameHeader className="mb-1" />
           <Teams />
