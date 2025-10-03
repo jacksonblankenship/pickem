@@ -51,8 +51,7 @@ export function GameCard(props: PropsWithClassName<GameCardInnerProps>) {
   });
 
   const { ref: animationRef, inView: shouldAnimate } = useInView({
-    triggerOnce: true,
-    rootMargin: '60px', // roughly 25% of a game card
+    triggerOnce: false,
   });
 
   const ref = (node: HTMLDivElement | null) => {
@@ -63,10 +62,10 @@ export function GameCard(props: PropsWithClassName<GameCardInnerProps>) {
   return (
     <div
       className={cn(
-        'h-60 w-full transition-all duration-700 ease-out',
+        'h-60 w-full transition-all duration-300',
         shouldAnimate
-          ? 'translate-y-0 opacity-100'
-          : 'translate-y-16 opacity-0',
+          ? 'scale-100 opacity-100 blur-none'
+          : 'scale-90 opacity-0 blur-xs',
       )}
       ref={ref}>
       {shouldLoadData ? (
