@@ -8,6 +8,7 @@ import z from 'zod';
 export const Route = createFileRoute('/picks')({
   component: RouteComponent,
   beforeLoad: async ({ context }) => {
+    // If the user does not have a session, redirect to sign in
     if (context.session === null) {
       throw redirect({
         to: '/sign-in',

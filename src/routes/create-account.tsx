@@ -31,7 +31,7 @@ export const Route = createFileRoute('/create-account')({
     }),
   ),
   beforeLoad: async ({ context, search }) => {
-    // If the user is not signed in, stay on the page
+    // If the user does not have a session, stay on the page
     if (context.session === null) {
       // If registration is open, stay on the page
       if (IS_REGISTRATION_OPEN) return;
@@ -42,7 +42,7 @@ export const Route = createFileRoute('/create-account')({
       });
     }
 
-    // If the user is signed in, redirect to the home page
+    // If the user has a session, redirect to the home page
     throw redirect({
       to: search.redirect ?? '/',
     });

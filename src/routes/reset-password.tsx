@@ -30,10 +30,10 @@ export const Route = createFileRoute('/reset-password')({
     }),
   ),
   beforeLoad: async ({ context, search }) => {
-    // If the user is not signed in, return
+    // If the user does not have a session, stay on the page
     if (context.session === null) return;
 
-    // If the user is signed in, redirect to the home page
+    // If the user has a session, redirect to the home page
     throw redirect({
       to: search.redirect ?? '/',
     });
