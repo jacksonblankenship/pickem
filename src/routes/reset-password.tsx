@@ -144,8 +144,7 @@ function RouteComponent() {
             <SignInButton
               variant="link"
               className="w-full"
-              to="/sign-in"
-              disabled={false}>
+              to="/sign-in">
               Sign In
             </SignInButton>
           </CardFooter>
