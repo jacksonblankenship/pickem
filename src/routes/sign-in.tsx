@@ -10,7 +10,6 @@ import {
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { IS_REGISTRATION_OPEN } from '@/lib/constants';
 import { supabase } from '@/supabase';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
@@ -47,7 +46,7 @@ const formSchema = z.object({
   password: z.string().min(1, 'Password is required'),
 });
 
-const SignUpButton = createLink(Button);
+const ResetPasswordButton = createLink(Button);
 
 function RouteComponent() {
   const { mutate: signIn, isPending: isSignInPending } = useMutation({
@@ -125,13 +124,12 @@ function RouteComponent() {
                 'Sign In'
               )}
             </Button>
-            <SignUpButton
+            <ResetPasswordButton
               variant="link"
               className="w-full"
-              to="/create-account"
-              disabled={IS_REGISTRATION_OPEN === false}>
-              Create Account
-            </SignUpButton>
+              to="/reset-password">
+              Reset Password
+            </ResetPasswordButton>
           </CardFooter>
         </Card>
       </form>
