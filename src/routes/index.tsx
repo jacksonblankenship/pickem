@@ -4,18 +4,13 @@ import { createFileRoute, notFound, redirect } from '@tanstack/react-router';
 export const Route = createFileRoute('/')({
   component: RouteComponent,
   beforeLoad: async ({ context }) => {
+    // If the user does not have a session, redirect to sign in
     if (context.session === null) {
       throw redirect({
         to: '/sign-in',
-        search: {
-          redirect: location.href,
-        },
       });
     }
 
-    /**
-     * Determine the latest year and week from the games table that has bet options available.
-     */
     const { data } = await supabase
       .from('games')
       .select('week, year, bet_options!inner(id)')

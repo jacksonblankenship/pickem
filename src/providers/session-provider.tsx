@@ -33,8 +33,8 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_, newSession) => {
-      setSession(newSession);
+    } = supabase.auth.onAuthStateChange((_, session) => {
+      setSession(session);
     });
 
     return () => subscription.unsubscribe();

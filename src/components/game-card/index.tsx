@@ -51,7 +51,7 @@ export function GameCard(props: PropsWithClassName<GameCardInnerProps>) {
   });
 
   const { ref: animationRef, inView: shouldAnimate } = useInView({
-    triggerOnce: false,
+    triggerOnce: true,
   });
 
   const ref = (node: HTMLDivElement | null) => {
@@ -62,10 +62,10 @@ export function GameCard(props: PropsWithClassName<GameCardInnerProps>) {
   return (
     <div
       className={cn(
-        'h-60 w-full transition-all duration-300',
+        'h-60 w-full transition-all duration-500 ease-out',
         shouldAnimate
           ? 'scale-100 opacity-100 blur-none'
-          : 'scale-90 opacity-0 blur-xs',
+          : 'scale-95 opacity-0 blur-xs',
       )}
       ref={ref}>
       {shouldLoadData ? (
