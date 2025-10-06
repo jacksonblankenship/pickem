@@ -37,6 +37,7 @@ function RouteComponent() {
       const [{ error }] = await Promise.all([
         supabase.auth.signInWithOtp({
           email: values.email,
+          options: { shouldCreateUser: false },
         }),
         minimumLoadingDelay(),
       ]);
