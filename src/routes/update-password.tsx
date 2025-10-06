@@ -14,6 +14,7 @@ import { supabase } from '@/supabase';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { createFileRoute, createLink, redirect } from '@tanstack/react-router';
+import { zodValidator } from '@tanstack/zod-adapter';
 import { Loader2 } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -21,12 +22,20 @@ import z from 'zod';
 
 export const Route = createFileRoute('/update-password')({
   component: RouteComponent,
-  beforeLoad: async ({ context }) => {
-    // Allow access if user does not have a session
-    if (context.session === null) return;
+  validateSearch: zodValidator(
+    z.object({
+      redirect: z.url().optional(),
+    }),
+  ),
+  beforeLoad: async ({ context, search }) => {
+    // Allow access if the user is in password recovery mode
+    if (context.isPasswordRecovery) return;
+
+    // Allow access if the user has a session
+    if (context.session !== null) return;
 
     throw redirect({
-      to: '/',
+      to: search.redirect ?? '/sign-in',
     });
   },
   staticData: { hideAppBar: true },
