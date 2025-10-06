@@ -74,11 +74,13 @@ export function BetOptionConfirmation() {
 
   const description = payload
     ? `${payload.awayTeamAbbr} @ ${payload.homeTeamAbbr} — ${
-        payload.type === 'total'
-          ? 'Total'
-          : payload.target === 'home'
-            ? payload.homeTeamAbbr
-            : payload.awayTeamAbbr
+        payload.target === 'over'
+          ? 'Over'
+          : payload.target === 'under'
+            ? 'Under'
+            : payload.target === 'home'
+              ? payload.homeTeamAbbr
+              : payload.awayTeamAbbr
       } ${formattedLine} (${formattedOdds})`
     : null;
 
@@ -99,9 +101,10 @@ export function BetOptionConfirmation() {
           </Button>
           <Button
             type="button"
-            className="min-w-[100px] bg-blue-600 text-white hover:bg-blue-700"
+            className="min-w-[100px] bg-blue-600 text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             onClick={() => mutate()}
-            disabled={isLoading}>
+            disabled={isLoading}
+            autoFocus>
             {isLoading ? (
               <Loader2 className="h-[1.2rem] w-[1.2rem] animate-spin" />
             ) : (
