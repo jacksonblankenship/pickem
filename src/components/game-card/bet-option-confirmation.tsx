@@ -84,7 +84,7 @@ export function BetOptionConfirmation() {
 
   return (
     <AlertDialog open={open}>
-      <AlertDialogContent>
+      <AlertDialogContent className="user-select-none">
         <AlertDialogHeader>
           <AlertDialogTitle>Confirm your pick</AlertDialogTitle>
           <AlertDialogDescription>{description}</AlertDialogDescription>
