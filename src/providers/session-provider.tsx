@@ -1,11 +1,14 @@
 import { SessionContext } from '@/context/session-context';
 import { AUTH_TOKEN_STORAGE_KEY } from '@/lib/constants';
 import { supabase } from '@/supabase';
-import { Session } from '@supabase/supabase-js';
+import { AuthChangeEvent, Session } from '@supabase/supabase-js';
 import { useEffect, useState } from 'react';
 import z from 'zod';
 
 export function SessionProvider({ children }: { children: React.ReactNode }) {
+  const [authChangeEvent, setAuthChangeEvent] =
+    useState<AuthChangeEvent | null>(null);
+
   const [session, setSession] = useState<Session | null>(() => {
     try {
       const storageItem = localStorage.getItem(AUTH_TOKEN_STORAGE_KEY);
@@ -29,30 +32,20 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       return null;
     }
   });
-  const [isPasswordRecovery, setIsPasswordRecovery] = useState(false);
 
   useEffect(() => {
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, newSession) => {
-      // Handle password recovery event - allow access to update password page
-      if (event === 'PASSWORD_RECOVERY') {
-        setIsPasswordRecovery(true);
-        // Don't set session to null during password recovery
-        // The user should be able to access the update-password page
-        return;
-      }
-
-      // Reset password recovery state on other events
-      setIsPasswordRecovery(false);
-      setSession(newSession);
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      setSession(session);
+      setAuthChangeEvent(event);
     });
 
     return () => subscription.unsubscribe();
   }, []);
 
   return (
-    <SessionContext.Provider value={{ session, isPasswordRecovery }}>
+    <SessionContext.Provider value={{ session, authChangeEvent }}>
       {children}
     </SessionContext.Provider>
   );

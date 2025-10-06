@@ -1,6 +1,6 @@
 import { useSessionContext } from '@/context/session-context';
 import { routeTree } from '@/routeTree.gen';
-import { Session } from '@supabase/supabase-js';
+import { AuthChangeEvent, Session } from '@supabase/supabase-js';
 import {
   createRouter,
   RouterProvider as TanStackRouterProvider,
@@ -9,7 +9,7 @@ import { useEffect, useRef } from 'react';
 
 export type RouterContext = {
   session: Session | null;
-  isPasswordRecovery: boolean;
+  authChangeEvent: AuthChangeEvent | null;
 };
 
 declare module '@tanstack/react-router' {
@@ -25,7 +25,7 @@ const router = createRouter({
   routeTree,
   context: {
     session: null,
-    isPasswordRecovery: false,
+    authChangeEvent: null,
   },
   scrollRestoration: true,
   scrollToTopSelectors: ['#main-scroll'],
@@ -33,7 +33,7 @@ const router = createRouter({
 });
 
 export function RouterProvider() {
-  const { session, isPasswordRecovery } = useSessionContext();
+  const { session, authChangeEvent } = useSessionContext();
 
   const previousSession = useRef<Session | null>(null);
 
@@ -51,10 +51,16 @@ export function RouterProvider() {
     router.invalidate();
   }, [session]);
 
+  useEffect(() => {
+    if (authChangeEvent === 'PASSWORD_RECOVERY') {
+      router.navigate({ to: '/update-password' });
+    }
+  }, [authChangeEvent]);
+
   return (
     <TanStackRouterProvider
       router={router}
-      context={{ session, isPasswordRecovery }}
+      context={{ session, authChangeEvent }}
     />
   );
 }

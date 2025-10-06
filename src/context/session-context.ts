@@ -1,12 +1,12 @@
-import { Session } from '@supabase/supabase-js';
+import { AuthChangeEvent, Session } from '@supabase/supabase-js';
 import { createContext, useContext } from 'react';
 
 export const SessionContext = createContext<{
   session: Session | null;
-  isPasswordRecovery: boolean;
+  authChangeEvent: AuthChangeEvent | null;
 }>({
   session: null,
-  isPasswordRecovery: false,
+  authChangeEvent: null,
 });
 
 export function useSessionContext() {

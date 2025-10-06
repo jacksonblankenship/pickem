@@ -31,7 +31,7 @@ export const Route = createFileRoute('/update-password')({
     console.log('Running update-password beforeLoad');
 
     // Allow access if the user is in password recovery mode
-    if (context.isPasswordRecovery) {
+    if (context.authChangeEvent === 'PASSWORD_RECOVERY') {
       console.log('User is in password recovery mode, allowing access');
 
       return;
