@@ -11,15 +11,15 @@ import { useSearch } from '@tanstack/react-router';
 import { Loader2, Lock } from 'lucide-react';
 import { toast } from 'sonner';
 import { useBetOptionConfirmationStore } from '../../stores/bet-option-confirmation-store';
-import {
-  AlertDialog,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from '../ui/alert-dialog';
 import { Button } from '../ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '../ui/dialog';
 
 export function BetOptionConfirmation() {
   const { open, payload, closeDialog, setLoading, isLoading } =
@@ -85,13 +85,15 @@ export function BetOptionConfirmation() {
     : null;
 
   return (
-    <AlertDialog open={open}>
-      <AlertDialogContent className="user-select-none">
-        <AlertDialogHeader>
-          <AlertDialogTitle>Confirm your pick</AlertDialogTitle>
-          <AlertDialogDescription>{description}</AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
+    <Dialog
+      open={open}
+      onOpenChange={isOpen => isOpen === false && closeDialog()}>
+      <DialogContent className="user-select-none">
+        <DialogHeader>
+          <DialogTitle>Confirm your pick</DialogTitle>
+          <DialogDescription>{description}</DialogDescription>
+        </DialogHeader>
+        <DialogFooter>
           <Button
             disabled={isLoading}
             onClick={() => closeDialog()}
@@ -114,8 +116,8 @@ export function BetOptionConfirmation() {
               </>
             )}
           </Button>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }
