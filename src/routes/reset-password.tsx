@@ -30,12 +30,14 @@ export const Route = createFileRoute('/reset-password')({
     }),
   ),
   beforeLoad: async ({ context, search }) => {
-    // If the user does not have a session, stay on the page
-    if (context.session === null) return;
+    // Allow access if the user is in password recovery mode
+    if (context.isPasswordRecovery) return;
 
-    // If the user has a session, redirect to the home page
+    // Allow access if the user has a session
+    if (context.session !== null) return;
+
     throw redirect({
-      to: search.redirect ?? '/',
+      to: search.redirect ?? '/sign-in',
     });
   },
   staticData: { hideAppBar: true },
@@ -141,10 +143,7 @@ function RouteComponent() {
                 'Reset Password'
               )}
             </Button>
-            <SignInButton
-              variant="link"
-              className="w-full"
-              to="/sign-in">
+            <SignInButton variant="link" className="w-full" to="/sign-in">
               Sign In
             </SignInButton>
           </CardFooter>

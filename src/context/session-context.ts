@@ -3,8 +3,10 @@ import { createContext, useContext } from 'react';
 
 export const SessionContext = createContext<{
   session: Session | null;
+  isPasswordRecovery: boolean;
 }>({
   session: null,
+  isPasswordRecovery: false,
 });
 
 export function useSessionContext() {

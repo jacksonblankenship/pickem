@@ -14,9 +14,6 @@ export const Route = createFileRoute('/')({
       });
     }
 
-    /**
-     * Determine the latest year and week from the games table that has bet options available.
-     */
     const { data } = await supabase
       .from('games')
       .select('week, year, bet_options!inner(id)')

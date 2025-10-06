@@ -22,11 +22,11 @@ import z from 'zod';
 export const Route = createFileRoute('/update-password')({
   component: RouteComponent,
   beforeLoad: async ({ context }) => {
-    if (context.session !== null) return;
+    // Allow access if user does not have a session
+    if (context.session === null) return;
 
-    // If the user does not have a session, redirect to sign in
     throw redirect({
-      to: '/sign-in',
+      to: '/',
     });
   },
   staticData: { hideAppBar: true },

@@ -29,11 +29,22 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       return null;
     }
   });
+  const [isPasswordRecovery, setIsPasswordRecovery] = useState(false);
 
   useEffect(() => {
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_, newSession) => {
+    } = supabase.auth.onAuthStateChange((event, newSession) => {
+      // Handle password recovery event - allow access to update password page
+      if (event === 'PASSWORD_RECOVERY') {
+        setIsPasswordRecovery(true);
+        // Don't set session to null during password recovery
+        // The user should be able to access the update-password page
+        return;
+      }
+
+      // Reset password recovery state on other events
+      setIsPasswordRecovery(false);
       setSession(newSession);
     });
 
@@ -41,7 +52,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <SessionContext.Provider value={{ session }}>
+    <SessionContext.Provider value={{ session, isPasswordRecovery }}>
       {children}
     </SessionContext.Provider>
   );

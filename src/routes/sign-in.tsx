@@ -28,10 +28,9 @@ export const Route = createFileRoute('/sign-in')({
     }),
   ),
   beforeLoad: async ({ context, search }) => {
-    // If the user does not have a session, stay on the page
+    // Allow access if the user does not have a session
     if (context.session === null) return;
 
-    // If the user has a session, redirect to the home page
     throw redirect({
       to: search.redirect ?? '/',
     });

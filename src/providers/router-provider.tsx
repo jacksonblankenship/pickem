@@ -9,6 +9,7 @@ import { useEffect, useRef } from 'react';
 
 export type RouterContext = {
   session: Session | null;
+  isPasswordRecovery: boolean;
 };
 
 declare module '@tanstack/react-router' {
@@ -24,6 +25,7 @@ const router = createRouter({
   routeTree,
   context: {
     session: null,
+    isPasswordRecovery: false,
   },
   scrollRestoration: true,
   scrollToTopSelectors: ['#main-scroll'],
@@ -31,7 +33,7 @@ const router = createRouter({
 });
 
 export function RouterProvider() {
-  const { session } = useSessionContext();
+  const { session, isPasswordRecovery } = useSessionContext();
 
   const previousSession = useRef<Session | null>(null);
 
@@ -49,5 +51,10 @@ export function RouterProvider() {
     router.invalidate();
   }, [session]);
 
-  return <TanStackRouterProvider router={router} context={{ session }} />;
+  return (
+    <TanStackRouterProvider
+      router={router}
+      context={{ session, isPasswordRecovery }}
+    />
+  );
 }
