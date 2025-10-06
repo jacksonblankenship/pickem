@@ -52,7 +52,11 @@ export function RouterProvider() {
   }, [session]);
 
   useEffect(() => {
+    console.log('authChangeEvent', authChangeEvent);
+
     if (authChangeEvent === 'PASSWORD_RECOVERY') {
+      console.log('navigating to update-password');
+
       router.navigate({ to: '/update-password' });
     }
   }, [authChangeEvent]);
