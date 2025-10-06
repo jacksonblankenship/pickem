@@ -8,15 +8,12 @@ import z from 'zod';
 export const Route = createFileRoute('/picks')({
   component: RouteComponent,
   beforeLoad: async ({ context }) => {
-    // Allow access if the user has a session
-    if (context.session !== null) return;
-
-    throw redirect({
-      to: '/sign-in',
-      search: {
-        redirect: location.href,
-      },
-    });
+    // If the user does not have a session, redirect to sign in
+    if (context.session === null) {
+      throw redirect({
+        to: '/sign-in',
+      });
+    }
   },
   validateSearch: zodValidator(
     z.object({

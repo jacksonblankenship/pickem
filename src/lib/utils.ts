@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { MINIMUM_LOADING_DELAY_MS } from './constants';
 import { env } from './env';
 
 export function cn(...inputs: ClassValue[]) {
@@ -39,6 +40,14 @@ export const spreadFormatter = new Intl.NumberFormat('en-US', {
  */
 export function waitFor(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+/**
+ * Standard minimum loading delay for better UX
+ * @returns A promise that resolves after the given number of milliseconds
+ */
+export function minimumLoadingDelay() {
+  return waitFor(MINIMUM_LOADING_DELAY_MS);
 }
 
 /**

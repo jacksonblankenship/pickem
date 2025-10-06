@@ -1,9 +1,9 @@
 import { useHasGameStarted } from '@/hooks/use-has-game-started';
 import {
+  minimumLoadingDelay,
   oddsFormatter,
   pointTotalFormatter,
   spreadFormatter,
-  waitFor,
 } from '@/lib/utils';
 import { supabase } from '@/supabase';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -42,7 +42,7 @@ export function BetOptionConfirmation() {
             bet_option_id: payload!.betOptionId,
           })
           .throwOnError(),
-        waitFor(1000),
+        minimumLoadingDelay(),
       ]);
     },
     onError: error => {

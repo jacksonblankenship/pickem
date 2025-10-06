@@ -1,14 +1,11 @@
 import { SessionContext } from '@/context/session-context';
 import { AUTH_TOKEN_STORAGE_KEY } from '@/lib/constants';
 import { supabase } from '@/supabase';
-import { AuthChangeEvent, Session } from '@supabase/supabase-js';
+import { Session } from '@supabase/supabase-js';
 import { useEffect, useState } from 'react';
 import z from 'zod';
 
 export function SessionProvider({ children }: { children: React.ReactNode }) {
-  const [authChangeEvent, setAuthChangeEvent] =
-    useState<AuthChangeEvent | null>(null);
-
   const [session, setSession] = useState<Session | null>(() => {
     try {
       const storageItem = localStorage.getItem(AUTH_TOKEN_STORAGE_KEY);
@@ -36,16 +33,15 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, session) => {
+    } = supabase.auth.onAuthStateChange((_, session) => {
       setSession(session);
-      setAuthChangeEvent(event);
     });
 
     return () => subscription.unsubscribe();
   }, []);
 
   return (
-    <SessionContext.Provider value={{ session, authChangeEvent }}>
+    <SessionContext.Provider value={{ session }}>
       {children}
     </SessionContext.Provider>
   );
