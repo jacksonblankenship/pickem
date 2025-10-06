@@ -28,11 +28,25 @@ export const Route = createFileRoute('/update-password')({
     }),
   ),
   beforeLoad: async ({ context, search }) => {
+    console.log('Running update-password beforeLoad');
+
     // Allow access if the user is in password recovery mode
-    if (context.isPasswordRecovery) return;
+    if (context.isPasswordRecovery) {
+      console.log('User is in password recovery mode, allowing access');
+
+      return;
+    }
 
     // Allow access if the user has a session
-    if (context.session !== null) return;
+    if (context.session !== null) {
+      console.log('User has a session, allowing access');
+
+      return;
+    }
+
+    console.log(
+      'User does not have a session and is not in password recovery mode, redirecting to sign-in',
+    );
 
     throw redirect({
       to: search.redirect ?? '/sign-in',

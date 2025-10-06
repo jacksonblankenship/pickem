@@ -25,7 +25,13 @@ export const Route = createFileRoute('/reset-password')({
   component: RouteComponent,
   beforeLoad: async ({ context }) => {
     // Allow access if user does not have a session
-    if (context.session === null) return;
+    if (context.session === null) {
+      console.log('User does not have a session, allowing access');
+
+      return;
+    }
+
+    console.log('User has a session, redirecting to home');
 
     throw redirect({
       to: '/',
