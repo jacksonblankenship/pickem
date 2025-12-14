@@ -47,7 +47,7 @@
     "@vitejs/plugin-react": "5.1.2",
     "eslint": "9.39.2",
     "eslint-plugin-react-hooks": "6.1.1",
-    "eslint-plugin-react-refresh": "0.4.24",
+    "eslint-plugin-react-refresh": "0.4.25",
     "globals": "16.5.0",
     "prettier": "3.7.4",
     "prettier-plugin-packagejson": "2.5.20",
