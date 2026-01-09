@@ -103,8 +103,8 @@ importers:
         specifier: 1.146.2
         version: 1.146.2(@tanstack/react-router@1.146.2(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(@tanstack/router-core@1.146.2)(csstype@3.2.3)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(solid-js@1.9.9)
       '@tanstack/router-plugin':
-        specifier: 1.146.2
-        version: 1.146.2(@tanstack/react-router@1.146.2(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(vite@7.3.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.1)(tsx@4.20.5)(yaml@2.8.2))
+        specifier: 1.146.3
+        version: 1.146.3(@tanstack/react-router@1.146.2(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(vite@7.3.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.1)(tsx@4.20.5)(yaml@2.8.2))
       '@types/node':
         specifier: 24.9.1
         version: 24.9.1
@@ -1337,8 +1337,8 @@ packages:
     resolution: {integrity: sha512-0eO/iL50OrNLtG613iHLmps8AVJC7WChDz+njFViTiWCf20RMEjeUlKTffdrREx3v/QeaLVuxlBvLkXRqSW0yg==}
     engines: {node: '>=12'}
 
-  '@tanstack/router-plugin@1.146.2':
-    resolution: {integrity: sha512-4eHhoH2z69KfJTXqLqWAnfseGxzAiw5BX7wDatzXR5ODYXOu+JBIEMiZrP2YDclxPLVuetmBrGAluWSduH8O/g==}
+  '@tanstack/router-plugin@1.146.3':
+    resolution: {integrity: sha512-2YCieC5UbFBEf3d1Up6Q2IeGqRjc+qmxbCvVxSONnitK6aDFKpRoxltlhMyeQyeIhFsIyhqxaIADOkO+fMrFRQ==}
     engines: {node: '>=12'}
     peerDependencies:
       '@rsbuild/core': '>=1.0.2'
@@ -3615,7 +3615,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@tanstack/router-plugin@1.146.2(@tanstack/react-router@1.146.2(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(vite@7.3.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.1)(tsx@4.20.5)(yaml@2.8.2))':
+  '@tanstack/router-plugin@1.146.3(@tanstack/react-router@1.146.2(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(vite@7.3.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.1)(tsx@4.20.5)(yaml@2.8.2))':
     dependencies:
       '@babel/core': 7.28.5
       '@babel/plugin-syntax-jsx': 7.27.1(@babel/core@7.28.5)
