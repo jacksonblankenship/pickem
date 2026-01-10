@@ -42,7 +42,7 @@
     "@tanstack/react-router-devtools": "1.147.0",
     "@tanstack/router-plugin": "1.147.0",
     "@types/node": "24.9.1",
-    "@types/react": "19.2.7",
+    "@types/react": "19.2.8",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "5.1.2",
     "eslint": "9.39.2",
