@@ -43,7 +43,7 @@ importers:
         version: 1.153.2(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@tanstack/zod-adapter':
         specifier: 1.153.2
-        version: 1.153.2(@tanstack/react-router@1.153.2(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(zod@4.3.5)
+        version: 1.153.2(@tanstack/react-router@1.153.2(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(zod@4.4.3)
       '@vercel/analytics':
         specifier: 1.6.1
         version: 1.6.1(react@19.2.7)(vue-router@4.6.3(vue@3.5.25(typescript@5.9.3)))(vue@3.5.25(typescript@5.9.3))
@@ -90,8 +90,8 @@ importers:
         specifier: 1.4.0
         version: 1.4.0
       zod:
-        specifier: 4.3.5
-        version: 4.3.5
+        specifier: 4.4.3
+        version: 4.4.3
       zustand:
         specifier: 5.0.14
         version: 5.0.14(@types/react@19.2.17)(react@19.2.7)(use-sync-external-store@1.6.0(react@19.2.7))
@@ -2591,8 +2591,8 @@ packages:
   zod@3.25.76:
     resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
 
-  zod@4.3.5:
-    resolution: {integrity: sha512-k7Nwx6vuWx1IJ9Bjuf4Zt1PEllcwe7cls3VNzm4CQ1/hgtFUK2bRNG3rvnpPUhFjmqJKAKtjV576KnUkHocg/g==}
+  zod@4.4.3:
+    resolution: {integrity: sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ==}
 
   zustand@5.0.14:
     resolution: {integrity: sha512-/8tAspM5LMPr28b3fwLYrtdj77ECpfZviaP75CMTnwO8ISyaE4GDIG/9rDDYq/cH9D2Xw2A2RXglLInmVBQB/g==}
@@ -3770,10 +3770,10 @@ snapshots:
 
   '@tanstack/virtual-file-routes@1.145.4': {}
 
-  '@tanstack/zod-adapter@1.153.2(@tanstack/react-router@1.153.2(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(zod@4.3.5)':
+  '@tanstack/zod-adapter@1.153.2(@tanstack/react-router@1.153.2(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(zod@4.4.3)':
     dependencies:
       '@tanstack/react-router': 1.153.2(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-      zod: 4.3.5
+      zod: 4.4.3
 
   '@types/babel__core@7.20.5':
     dependencies:
@@ -4210,8 +4210,8 @@ snapshots:
       '@babel/core': 7.28.4(supports-color@7.2.0)
       '@babel/parser': 7.28.4
       eslint: 9.39.5(jiti@2.6.1)(supports-color@7.2.0)
-      zod: 4.3.5
-      zod-validation-error: 3.5.3(zod@4.3.5)
+      zod: 4.4.3
+      zod-validation-error: 3.5.3(zod@4.4.3)
     transitivePeerDependencies:
       - supports-color
 
@@ -4848,13 +4848,13 @@ snapshots:
 
   yocto-queue@0.1.0: {}
 
-  zod-validation-error@3.5.3(zod@4.3.5):
+  zod-validation-error@3.5.3(zod@4.4.3):
     dependencies:
-      zod: 4.3.5
+      zod: 4.4.3
 
   zod@3.25.76: {}
 
-  zod@4.3.5: {}
+  zod@4.4.3: {}
 
   zustand@5.0.14(@types/react@19.2.17)(react@19.2.7)(use-sync-external-store@1.6.0(react@19.2.7)):
     optionalDependencies:
